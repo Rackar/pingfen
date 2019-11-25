@@ -8,7 +8,7 @@ import "element-ui/lib/theme-chalk/index.css";
 import axios from "axios";
 let mainUrl =
   process.env.NODE_ENV === "production"
-    ? "https://129.211.54.162:3007/"
+    ? "https://talatan.com:3007/"
     : // ? "http://129.211.54.162:3006/"
       "http://localhost:3006/";
 axios.defaults.baseURL = mainUrl;
