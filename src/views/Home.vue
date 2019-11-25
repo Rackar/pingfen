@@ -165,7 +165,7 @@ export default {
   },
   computed: {
     uploadActionUrl() {
-      return this.$imgServer + "/noauth/upload/image";
+      return this.$imgServer + "noauth/upload/image";
     }
   },
   created() {
