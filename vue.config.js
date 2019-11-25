@@ -9,7 +9,7 @@ module.exports = {
   devServer: {
     // publicPath: "/", // 和 publicPath 保持一致,
     port: 9333,
-    proxy: "http://localhost:3006"
+    proxy: "https://localhost:3007"
 
     // proxy: {
     //   '/noauth': {

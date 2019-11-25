@@ -4,7 +4,7 @@
       <h3>新增评委</h3>
       <el-upload
         class="avatar-uploader"
-        action="/noauth/upload/image"
+        :action="uploadActionUrl"
         :show-file-list="false"
         :on-success="handleUploadSuccess"
         :before-upload="beforeUploadUpload"
@@ -60,7 +60,7 @@
       <h3>新增参赛者</h3>
       <el-upload
         class="avatar-uploader"
-        action="/noauth/upload/image"
+        :action="uploadActionUrl"
         :show-file-list="false"
         :on-success="handleUploadCansaiSuccess"
         :before-upload="beforeUploadUpload"
@@ -162,6 +162,11 @@ export default {
         huanjie: []
       }
     };
+  },
+  computed: {
+    uploadActionUrl() {
+      return this.$imgServer + "/noauth/upload/image";
+    }
   },
   created() {
     this.getTableData();

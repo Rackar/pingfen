@@ -10,6 +10,7 @@ let mainUrl =
   process.env.NODE_ENV === "production"
     ? "https://talatan.com:3007/"
     : // ? "http://129.211.54.162:3006/"
+      // "https://localhost:3007/";
       "http://localhost:3006/";
 axios.defaults.baseURL = mainUrl;
 Vue.prototype.$imgServer = mainUrl;
