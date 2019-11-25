@@ -64,7 +64,21 @@ export default {
       console.log(value);
     },
     goCheck() {
-      this.dialogVisible = true;
+      //axios
+      this.$axios.get("/noauth/pingfen/all").then(res => {
+        console.log(res);
+        let data = res.data.data;
+        let flow = data.flow[0];
+        if (res.status == 200 && res.data.status == 1) {
+          if (flow.cansaiId !== "" && flow.huanjieId !== "") {
+            this.dialogVisible = true;
+          } else {
+            this.$message.error("打分还未开始");
+          }
+        } else {
+          this.$message.error("服务器错误");
+        }
+      });
     },
     sumitScore() {
       this.$confirm("确认提交本分数？")
