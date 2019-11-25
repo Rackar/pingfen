@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" v-loading="loading">
     <div class="card">
       <h3>新增评委</h3>
       <el-upload
@@ -36,9 +36,9 @@
       </el-form>
       <el-divider content-position="center">评委列表</el-divider>
       <el-table :data="table.pingwei" style="width: 100%">
-        <el-table-column type="index" label="序号" width="80"></el-table-column>
+        <el-table-column type="index" label="序号"></el-table-column>
 
-        <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+        <el-table-column prop="name" label="姓名"></el-table-column>
         <el-table-column label="头像">
           <template slot-scope="scope">
             <img style="height:80px;width:80px;" :src="scope.row.avatar" alt />
@@ -46,10 +46,12 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small"
-              >编辑</el-button
+            <el-button
+              type="text"
+              size="small"
+              @click="deleteRes(scope.row, 'pw')"
+              >删除</el-button
             >
-            <el-button type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,9 +79,9 @@
       </el-form>
       <el-divider content-position="center">参赛者列表</el-divider>
       <el-table :data="table.cansai" style="width: 100%">
-        <el-table-column type="index" label="序号" width="80"></el-table-column>
+        <el-table-column type="index" label="序号"></el-table-column>
 
-        <el-table-column prop="name" label="名称" width="180"></el-table-column>
+        <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column label="头像">
           <template slot-scope="scope">
             <img style="height:80px;width:80px;" :src="scope.row.avatar" alt />
@@ -87,10 +89,12 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small"
-              >编辑</el-button
+            <el-button
+              type="text"
+              size="small"
+              @click="deleteRes(scope.row, 'cs')"
+              >删除</el-button
             >
-            <el-button type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -114,10 +118,12 @@
         <el-table-column prop="name" label="名称" width="180"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small"
-              >编辑</el-button
+            <el-button
+              type="text"
+              size="small"
+              @click="deleteRes(scope.row, 'hj')"
+              >删除</el-button
             >
-            <el-button type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -129,6 +135,7 @@
 export default {
   data() {
     return {
+      loading: false,
       formInline: {
         user: "",
         region: ""
@@ -160,6 +167,40 @@ export default {
     this.getTableData();
   },
   methods: {
+    deleteRes(data, type) {
+      data.type = type;
+      this.$axios.post("/noauth/pingfen/delete", data).then(res => {
+        console.log(res);
+        // let data = res.data.data;
+        if (res.status == 200 && res.data.status == 1) {
+          if (type == "pw") {
+            this.table.pingwei.splice(
+              this.table.pingwei.findIndex(pw => {
+                return pw._id == data._id;
+              }),
+              1
+            );
+          } else if (type == "cs") {
+            this.table.cansai.splice(
+              this.table.cansai.findIndex(pw => {
+                return pw._id == data._id;
+              }),
+              1
+            );
+          } else if (type == "hj") {
+            this.table.huanjie.splice(
+              this.table.huanjie.findIndex(pw => {
+                return pw._id == data._id;
+              }),
+              1
+            );
+          }
+        } else {
+          this.$message.error("保存出现问题，请重试");
+        }
+      });
+    },
+
     getTableData() {
       //axios
       this.$axios.get("/noauth/pingfen/all").then(res => {
@@ -177,7 +218,12 @@ export default {
       });
     },
     addPingwei() {
-      let obj = this.formPingwei;
+      let obj = {
+        name: this.formPingwei.name,
+        username: this.formPingwei.username,
+        password: this.formPingwei.password,
+        avatar: this.formPingwei.avatar
+      };
 
       this.$axios.post("/noauth/pingfen/addpingwei", obj).then(res => {
         console.log(res);
@@ -192,7 +238,10 @@ export default {
       // this.$refs.newupload.submit();
     },
     addCansai() {
-      let obj = this.formCansai;
+      let obj = {
+        name: this.formCansai.name,
+        avatar: this.formCansai.avatar
+      };
 
       this.$axios.post("/noauth/pingfen/addcansai", obj).then(res => {
         console.log(res);
@@ -206,7 +255,7 @@ export default {
       });
     },
     addHuanjie() {
-      let obj = this.formHuanjie;
+      let obj = { name: this.formHuanjie.name };
 
       this.$axios.post("/noauth/pingfen/addhuanjie", obj).then(res => {
         console.log(res);
@@ -226,12 +275,14 @@ export default {
     handleAvatarSuccess() {},
     handleUploadSuccess(res, file) {
       console.log(res);
+      this.loading = false;
       this.formPingwei.avatar = this.$imgServer + res.data.filename;
       this.$message.success("上传头像成功");
       this.imageUrl = URL.createObjectURL(file.raw);
     },
     handleUploadCansaiSuccess(res, file) {
       console.log(res);
+      this.loading = false;
       this.formCansai.avatar = this.$imgServer + res.data.filename;
       this.$message.success("上传头像成功");
       this.imageUrl2 = URL.createObjectURL(file.raw);
@@ -240,7 +291,7 @@ export default {
       const isJPG = file.type === "image/jpeg" || file.type === "image/png";
 
       const isLt2M = file.size / 1024 / 1024 < 2;
-
+      this.loading = true;
       if (!isJPG) {
         this.$message.error("上传头像图片只能是 JPG/PNG 格式!");
       }

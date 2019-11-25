@@ -8,8 +8,9 @@ import "element-ui/lib/theme-chalk/index.css";
 import axios from "axios";
 let mainUrl =
   process.env.NODE_ENV === "production"
-    ? "http://129.211.54.162:3006/"
-    : "http://localhost:3006/";
+    ? "https://129.211.54.162:3007/"
+    : // ? "http://129.211.54.162:3006/"
+      "http://localhost:3006/";
 axios.defaults.baseURL = mainUrl;
 Vue.prototype.$imgServer = mainUrl;
 // var token = window.localStorage.getItem("token");

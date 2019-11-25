@@ -26,14 +26,7 @@ export default {
     return {
       active: 0,
       huanjie: [
-        { title: "环节1进行", description: "完成时间：未完成", status: false },
-        { title: "环节1评分", description: "完成时间：未完成", status: false },
-        { title: "环节2进行", description: "完成时间：未完成", status: false },
-        { title: "环节2评分", description: "完成时间：未完成", status: false },
-        { title: "环节3进行", description: "完成时间：未完成", status: false },
-        { title: "环节3评分", description: "完成时间：未完成", status: false },
-        { title: "环节4进行", description: "完成时间：未完成", status: false },
-        { title: "环节4评分", description: "完成时间：未完成", status: false }
+        { title: "环节1进行", description: "完成时间：未完成", status: false }
       ]
     };
   },
