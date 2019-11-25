@@ -3,20 +3,14 @@
     <h1>比赛环节控制器，只有在评分环节才可以打分</h1>
     <div>
       <h3>环节：{{ huanjieSelect }} ， 选手：{{ cansaiSelect }}</h3>
-      <el-button style="margin-top: 12px;" @click="last">上一步</el-button>
-      <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
-      <el-button style="margin-top: 12px;" @click="showResult"
-        >展示汇总结果</el-button
-      >
+      <el-button type="primary" style="margin-top: 12px;" @click="last">上一步</el-button>
+      <el-button type="primary" style="margin-top: 12px;" @click="next">下一步</el-button>
+      <el-button type="primary" style="margin-top: 12px;" @click="showResult">展示汇总结果</el-button>
     </div>
     <el-row>
       <el-col :xs="12" :md="12">
         <div class="aboutstep">
-          <el-steps
-            :active="active"
-            finish-status="success"
-            direction="vertical"
-          >
+          <el-steps :active="active" finish-status="success" direction="vertical">
             <el-step
               :space="200"
               v-for="hj in huanjie"
@@ -28,24 +22,23 @@
         </div>
       </el-col>
       <el-col :xs="12" :md="12" v-show="this.active % 2 != 0">
-        <el-button style="margin-top: 12px;" @click="setActive"
-          >开始评分</el-button
-        ><el-button style="margin-top: 12px;" @click="setNotActive"
-          >停止评分</el-button
-        >
-        <el-card
-          shadow="hover"
-          v-for="cs in cansai"
-          :key="cs._id"
-          class="cansai"
-          :class="{ cansaiClass: cs._id == selectId }"
-          :body-style="{ padding: '5px', margin: '0' }"
-        >
-          <img @click="selectCS(cs)" :src="cs.avatar" class="image" />
-          <div style="padding: 14px;" @click="selectCS(cs)">
-            <span>{{ cs.name }}</span>
-          </div>
-        </el-card>
+        <el-button type="success" style="margin-top: 12px;" @click="setActive">开始评分</el-button>
+        <el-button type="success" style="margin-top: 12px;" @click="setNotActive">停止评分</el-button>
+        <template v-for="cs in cansai">
+          <el-card
+            @click.native="selectCS(cs)"
+            :key="cs._id"
+            shadow="hover"
+            class="cansai"
+            :class="{ cansaiClass: cs._id == selectId }"
+            :body-style="{ padding: '10px 0 0 0', margin: '0' }"
+          >
+            <img :src="cs.avatar" class="image" />
+            <div style="padding: 14px;">
+              <span>{{ cs.name }}</span>
+            </div>
+          </el-card>
+        </template>
       </el-col>
     </el-row>
   </div>
@@ -176,6 +169,10 @@ export default {
 };
 </script>
 <style>
+.image {
+  width: 140px;
+  height: 140px;
+}
 .aboutstep {
   /* width: 400px; */
   height: 500px;

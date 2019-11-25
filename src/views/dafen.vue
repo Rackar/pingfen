@@ -21,7 +21,7 @@
         <div>分数上限：100，分数下限：1</div>
 
         <el-input-number
-          v-model="num"
+          v-model="dafen.fenshu"
           @change="handleChange"
           :min="1"
           :max="100"
@@ -43,7 +43,14 @@ export default {
       dialogVisible: false,
       table: [],
       huanjie: "",
-      cansai: ""
+      cansai: "",
+      dafen: {
+        fenshu: 70,
+        cansaiId: "",
+        huanjieId: "",
+        pingweiId: ""
+      },
+      alldata: {}
     };
   },
   created() {
@@ -51,6 +58,20 @@ export default {
   },
   methods: {
     getTableData() {
+      //axios
+      this.$axios.get("/noauth/pingfen/all").then(res => {
+        console.log(res);
+        let data = res.data.data;
+        if (res.status == 200 && res.data.status == 1) {
+          // this.$router.push("/list");
+          this.alldata = data;
+
+          // this.table.cansai.push(obj);
+        } else {
+          this.$message.error("保存出现问题，请重试");
+        }
+      });
+
       //axios
       let obj = {
         huanjie: "第一节",
@@ -71,6 +92,9 @@ export default {
         let flow = data.flow[0];
         if (res.status == 200 && res.data.status == 1) {
           if (flow.cansaiId !== "" && flow.huanjieId !== "") {
+            this.dafen.cansaiId = flow.cansaiId;
+            this.dafen.huanjieId = flow.huanjieId;
+            this.dafen.pingweiId = "pingweiid";
             this.dialogVisible = true;
           } else {
             this.$message.error("打分还未开始");
@@ -84,6 +108,24 @@ export default {
       this.$confirm("确认提交本分数？")
         .then(() => {
           this.dialogVisible = false;
+          let { cansaiId, huanjieId, pingweiId, fenshu } = this.dafen;
+          let obj = {
+            cansaiId,
+            huanjieId,
+            pingweiId,
+            fenshu
+          };
+
+          this.$axios.post("/noauth/pingfen/add", obj).then(res => {
+            console.log(res);
+            if (res.status == 200 && res.data.status == 1) {
+              // this.$router.push("/list");
+              this.$message.success("成功");
+              // this.table.pingwei.push(obj);
+            } else {
+              this.$message.error("保存出现问题，请重试");
+            }
+          });
         })
         .catch(() => {
           //   this.dialogVisible = false;
