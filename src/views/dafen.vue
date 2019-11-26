@@ -17,7 +17,7 @@
       :before-close="handleClose"
     >
       <div>
-        <h3>现在在给环节1的张三打分</h3>
+        <h1>现在在给环节 {{ huanjie }} 的 {{ cansai }} 打分</h1>
         <div>分数上限：100，分数下限：1</div>
 
         <el-input-number
@@ -114,6 +114,8 @@ export default {
             this.dafen.huanjieId = flow.huanjieId;
             this.dafen.pingweiId = "pingweiid";
             this.dialogVisible = true;
+            this.cansai = getArrObjNameFromId(this.alldata.cs, flow.cansaiId);
+            this.huanjie = getArrObjNameFromId(this.alldata.hj, flow.huanjieId);
           } else {
             this.$message.error("打分还未开始");
           }
@@ -140,6 +142,7 @@ export default {
               // this.$router.push("/list");
               this.$message.success("成功");
               // this.table.pingwei.push(obj);
+              this.getTableData();
             } else {
               this.$message.error("保存出现问题，请重试");
             }
