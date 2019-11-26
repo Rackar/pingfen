@@ -36,6 +36,8 @@
   </div>
 </template>
 <script>
+import getArrObjNameFromId from "../utils/tools";
+
 export default {
   data() {
     return {
@@ -50,7 +52,8 @@ export default {
         huanjieId: "",
         pingweiId: ""
       },
-      alldata: {}
+      alldata: {},
+      myPingweiId: "pingweiid"
     };
   },
   created() {
@@ -65,7 +68,22 @@ export default {
         if (res.status == 200 && res.data.status == 1) {
           // this.$router.push("/list");
           this.alldata = data;
-
+          let list = data.record.filter(element => {
+            return element.pingweiId == this.myPingweiId;
+          });
+          this.table = [];
+          list.forEach(element => {
+            let cansaiName = getArrObjNameFromId(data.cs, element.cansaiId);
+            let huanjieName = getArrObjNameFromId(data.hj, element.huanjieId);
+            let obj = {
+              huanjie: huanjieName,
+              cansai: cansaiName,
+              fenshu: element.fenshu,
+              time: element.updatedAt
+            };
+            this.table.push(obj);
+          });
+          console.log(list);
           // this.table.cansai.push(obj);
         } else {
           this.$message.error("保存出现问题，请重试");
