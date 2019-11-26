@@ -56,7 +56,19 @@ export default {
       myPingweiId: "pingweiid"
     };
   },
+  computed: {
+    pingweiname() {
+      return this.$store.state.pingweiname;
+    },
+    pingweiid() {
+      return this.$store.state.userid;
+    }
+  },
+
   created() {
+    if (this.pingweiname === "") {
+      this.$router.push("/login");
+    }
     this.getTableData();
   },
   methods: {

@@ -9,6 +9,7 @@
         <router-link to="/">录入页</router-link>|
         <router-link to="/control">比赛控制页</router-link>|
         <router-link to="/dafen">评委打分页</router-link>
+        <router-link to="/login">评委登录页</router-link>
       </div>
       <router-view />
     </el-col>

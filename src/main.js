@@ -50,8 +50,8 @@ axios.interceptors.response.use(
   function(error) {
     // console.log("res error", error);
     // Do something with response error
-    store.commit("logout_delToken");
-    router.replace({ name: "login" });
+    // store.commit("logout_delToken");
+    // router.replace({ name: "login" });
     // router.replace({
     //   path: "/login",
     //   query: {

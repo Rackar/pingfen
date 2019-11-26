@@ -13,17 +13,23 @@
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
 
-      <el-form :inline="true" :model="formPingwei" class="demo-form-inline">
-        <el-form-item label="姓名">
+      <el-form
+        ref="formPingwei"
+        :rules="rulesPw"
+        :inline="true"
+        :model="formPingwei"
+        class="demo-form-inline"
+      >
+        <el-form-item label="姓名" prop="name">
           <el-input v-model="formPingwei.name" placeholder="评委"></el-input>
         </el-form-item>
-        <el-form-item label="用户名">
+        <el-form-item label="用户名" prop="username">
           <el-input
             v-model="formPingwei.username"
             placeholder="用户名"
           ></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="密码" prop="password">
           <el-input
             v-model="formPingwei.password"
             placeholder="密码"
@@ -68,8 +74,14 @@
         <img v-if="imageUrl2" :src="imageUrl2" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-      <el-form :inline="true" :model="formCansai" class="demo-form-inline">
-        <el-form-item label="名称">
+      <el-form
+        ref="formCansai"
+        :rules="rulesCs"
+        :inline="true"
+        :model="formCansai"
+        class="demo-form-inline"
+      >
+        <el-form-item label="名称" prop="name">
           <el-input v-model="formCansai.name" placeholder="名称"></el-input>
         </el-form-item>
 
@@ -102,8 +114,14 @@
     <div class="card">
       <h3>新增比赛环节</h3>
 
-      <el-form :inline="true" :model="formHuanjie" class="demo-form-inline">
-        <el-form-item label="名称">
+      <el-form
+        ref="formHuanjie"
+        :rules="rulesHj"
+        :inline="true"
+        :model="formHuanjie"
+        class="demo-form-inline"
+      >
+        <el-form-item label="名称" prop="name">
           <el-input v-model="formHuanjie.name" placeholder="名称"></el-input>
         </el-form-item>
 
@@ -135,6 +153,19 @@
 export default {
   data() {
     return {
+      rulesPw: {
+        name: [{ required: true, message: "请输入评委姓名", trigger: "blur" }],
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" }
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+      },
+      rulesCs: {
+        name: [{ required: true, message: "请输入队伍名", trigger: "blur" }]
+      },
+      rulesHj: {
+        name: [{ required: true, message: "请输入环节名", trigger: "blur" }]
+      },
       loading: false,
       formInline: {
         user: "",
@@ -174,36 +205,42 @@ export default {
   methods: {
     deleteRes(data, type) {
       data.type = type;
-      this.$axios.post("/noauth/pingfen/delete", data).then(res => {
-        console.log(res);
-        // let data = res.data.data;
-        if (res.status == 200 && res.data.status == 1) {
-          if (type == "pw") {
-            this.table.pingwei.splice(
-              this.table.pingwei.findIndex(pw => {
-                return pw._id == data._id;
-              }),
-              1
-            );
-          } else if (type == "cs") {
-            this.table.cansai.splice(
-              this.table.cansai.findIndex(pw => {
-                return pw._id == data._id;
-              }),
-              1
-            );
-          } else if (type == "hj") {
-            this.table.huanjie.splice(
-              this.table.huanjie.findIndex(pw => {
-                return pw._id == data._id;
-              }),
-              1
-            );
+      this.$axios.post("/noauth/pingfen/delete", data).then(
+        res => {
+          console.log(res);
+          // let data = res.data.data;
+          if (res.status == 200 && res.data.status == 1) {
+            if (type == "pw") {
+              this.table.pingwei.splice(
+                this.table.pingwei.findIndex(pw => {
+                  return pw._id == data._id;
+                }),
+                1
+              );
+            } else if (type == "cs") {
+              this.table.cansai.splice(
+                this.table.cansai.findIndex(pw => {
+                  return pw._id == data._id;
+                }),
+                1
+              );
+            } else if (type == "hj") {
+              this.table.huanjie.splice(
+                this.table.huanjie.findIndex(pw => {
+                  return pw._id == data._id;
+                }),
+                1
+              );
+            }
+          } else {
+            this.$message.error("保存出现问题，请重试");
           }
-        } else {
-          this.$message.error("保存出现问题，请重试");
+        },
+        err => {
+          this.$message.error("出现问题");
+          console.log(err);
         }
-      });
+      );
     },
 
     getTableData() {
@@ -223,53 +260,71 @@ export default {
       });
     },
     addPingwei() {
-      let obj = {
-        name: this.formPingwei.name,
-        username: this.formPingwei.username,
-        password: this.formPingwei.password,
-        avatar: this.formPingwei.avatar
-      };
+      this.$refs["formPingwei"].validate(valid => {
+        if (valid) {
+          let obj = {
+            name: this.formPingwei.name,
+            username: this.formPingwei.username,
+            password: this.formPingwei.password,
+            avatar: this.formPingwei.avatar
+          };
 
-      this.$axios.post("/noauth/pingfen/addpingwei", obj).then(res => {
-        console.log(res);
-        if (res.status == 200 && res.data.status == 1) {
-          // this.$router.push("/list");
-          this.$message.success("成功");
-          this.table.pingwei.push(obj);
-        } else {
-          this.$message.error("保存出现问题，请重试");
+          this.$axios.post("/noauth/pingfen/addpingwei", obj).then(
+            res => {
+              console.log(res);
+              if (res.status == 200 && res.data.status == 1) {
+                // this.$router.push("/list");
+                this.$message.success("成功");
+                this.table.pingwei.push(obj);
+              } else {
+                this.$message.error("保存出现问题，请重试");
+              }
+            },
+            err => {
+              // debugger;
+              this.$message.error(err.response.data.msg);
+            }
+          );
+          // this.$refs.newupload.submit();
         }
       });
-      // this.$refs.newupload.submit();
     },
     addCansai() {
-      let obj = {
-        name: this.formCansai.name,
-        avatar: this.formCansai.avatar
-      };
+      this.$refs["formCansai"].validate(valid => {
+        if (valid) {
+          let obj = {
+            name: this.formCansai.name,
+            avatar: this.formCansai.avatar
+          };
 
-      this.$axios.post("/noauth/pingfen/addcansai", obj).then(res => {
-        console.log(res);
-        if (res.status == 200 && res.data.status == 1) {
-          // this.$router.push("/list");
-          this.$message.success("成功");
-          this.table.cansai.push(obj);
-        } else {
-          this.$message.error("保存出现问题，请重试");
+          this.$axios.post("/noauth/pingfen/addcansai", obj).then(res => {
+            console.log(res);
+            if (res.status == 200 && res.data.status == 1) {
+              // this.$router.push("/list");
+              this.$message.success("成功");
+              this.table.cansai.push(obj);
+            } else {
+              this.$message.error("保存出现问题，请重试");
+            }
+          });
         }
       });
     },
     addHuanjie() {
-      let obj = { name: this.formHuanjie.name };
+      this.$refs["formHuanjie"].validate(valid => {
+        if (valid) {
+          let obj = { name: this.formHuanjie.name };
 
-      this.$axios.post("/noauth/pingfen/addhuanjie", obj).then(res => {
-        console.log(res);
-        if (res.status == 200 && res.data.status == 1) {
-          // this.$router.push("/list");
-          this.$message.success("成功");
-          this.table.huanjie.push(obj);
-        } else {
-          this.$message.error("保存出现问题，请重试");
+          this.$axios.post("/noauth/pingfen/addhuanjie", obj).then(res => {
+            console.log(res);
+            if (res.status == 200 && res.data.status == 1) {
+              // this.$router.push("/list");
+              this.$message.success("成功");
+              this.table.huanjie.push(obj);
+            } else {
+              this.$message.error("保存出现问题，请重试");
+            }
+          });
         }
       });
     },

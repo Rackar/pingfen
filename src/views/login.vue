@@ -15,7 +15,7 @@
           status-icon
           v-loading="loading"
         >
-          <el-form-item label="用户名" prop="tel">
+          <el-form-item label="用户名" prop="username">
             <el-input v-model="form.username"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
@@ -49,9 +49,22 @@ export default {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "change" }]
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
+  },
+  computed: {
+    pingweiname() {
+      return this.$store.state.pingweiname;
+    },
+    pingweiid() {
+      return this.$store.state.userid;
+    }
+  },
+  created() {
+    if (this.pingweiname !== "") {
+      this.$router.push("/dafen");
+    }
   },
   methods: {
     onSubmit(formName) {
@@ -74,7 +87,9 @@ export default {
                 //   this.totalstars -= stars;
                 // this.$emit("refreshID", this.form.username);
                 console.log(res.data);
-
+                let data = res.data.data;
+                this.$store.commit("login_saveToken", data.token);
+                this.$router.push("/dafen");
                 this.$message({
                   showClose: true,
                   duration: 1500,
