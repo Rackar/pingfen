@@ -8,6 +8,7 @@
         :show-file-list="false"
         :on-success="handleUploadSuccess"
         :before-upload="beforeUploadUpload"
+        :on-remove="handleRemove"
       >
         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -47,7 +48,11 @@
         <el-table-column prop="name" label="姓名"></el-table-column>
         <el-table-column label="头像">
           <template slot-scope="scope">
-            <img style="height:80px;width:80px;" :src="scope.row.avatar" alt />
+            <img
+              style="height:80px;width:80px;"
+              :src="$imgServer + scope.row.avatar"
+              alt
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -96,7 +101,11 @@
         <el-table-column prop="name" label="名称"></el-table-column>
         <el-table-column label="头像">
           <template slot-scope="scope">
-            <img style="height:80px;width:80px;" :src="scope.row.avatar" alt />
+            <img
+              style="height:80px;width:80px;"
+              :src="$imgServer + scope.row.avatar"
+              alt
+            />
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -275,6 +284,7 @@ export default {
               if (res.status == 200 && res.data.status == 1) {
                 // this.$router.push("/list");
                 this.$message.success("成功");
+                if (!obj.avatar) obj.avatar = "person.png";
                 this.table.pingwei.push(obj);
               } else {
                 this.$message.error("保存出现问题，请重试");
@@ -302,6 +312,7 @@ export default {
             if (res.status == 200 && res.data.status == 1) {
               // this.$router.push("/list");
               this.$message.success("成功");
+              if (!obj.avatar) obj.avatar = "person.png";
               this.table.cansai.push(obj);
             } else {
               this.$message.error("保存出现问题，请重试");
@@ -331,19 +342,22 @@ export default {
     onSubmit() {
       console.log("submit!");
     },
+    handleRemove(file) {
+      console.log(file);
+    },
     beforeAvatarUpload() {},
     handleAvatarSuccess() {},
     handleUploadSuccess(res, file) {
       console.log(res);
       this.loading = false;
-      this.formPingwei.avatar = this.$imgServer + res.data.filename;
+      this.formPingwei.avatar = res.data.filename;
       this.$message.success("上传头像成功");
       this.imageUrl = URL.createObjectURL(file.raw);
     },
     handleUploadCansaiSuccess(res, file) {
       console.log(res);
       this.loading = false;
-      this.formCansai.avatar = this.$imgServer + res.data.filename;
+      this.formCansai.avatar = res.data.filename;
       this.$message.success("上传头像成功");
       this.imageUrl2 = URL.createObjectURL(file.raw);
     },

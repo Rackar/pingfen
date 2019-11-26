@@ -3,14 +3,24 @@
     <h1>比赛环节控制器，只有在评分环节才可以打分</h1>
     <div>
       <h3>环节：{{ huanjieSelect }} ， 选手：{{ cansaiSelect }}</h3>
-      <el-button type="primary" style="margin-top: 12px;" @click="last">上一步</el-button>
-      <el-button type="primary" style="margin-top: 12px;" @click="next">下一步</el-button>
-      <el-button type="primary" style="margin-top: 12px;" @click="showResult">展示汇总结果</el-button>
+      <el-button type="primary" style="margin-top: 12px;" @click="last"
+        >上一步</el-button
+      >
+      <el-button type="primary" style="margin-top: 12px;" @click="next"
+        >下一步</el-button
+      >
+      <el-button type="primary" style="margin-top: 12px;" @click="showResult"
+        >展示汇总结果</el-button
+      >
     </div>
     <el-row>
       <el-col :xs="12" :md="12">
         <div class="aboutstep">
-          <el-steps :active="active" finish-status="success" direction="vertical">
+          <el-steps
+            :active="active"
+            finish-status="success"
+            direction="vertical"
+          >
             <el-step
               :space="200"
               v-for="hj in huanjie"
@@ -22,8 +32,15 @@
         </div>
       </el-col>
       <el-col :xs="12" :md="12" v-show="this.active % 2 != 0">
-        <el-button type="success" style="margin-top: 12px;" @click="setActive">开始评分</el-button>
-        <el-button type="success" style="margin-top: 12px;" @click="setNotActive">停止评分</el-button>
+        <el-button type="success" style="margin-top: 12px;" @click="setActive"
+          >开始评分</el-button
+        >
+        <el-button
+          type="success"
+          style="margin-top: 12px;"
+          @click="setNotActive"
+          >停止评分</el-button
+        >
         <template v-for="cs in cansai">
           <el-card
             @click.native="selectCS(cs)"
@@ -33,7 +50,7 @@
             :class="{ cansaiClass: cs._id == selectId }"
             :body-style="{ padding: '10px 0 0 0', margin: '0' }"
           >
-            <img :src="cs.avatar" class="image" />
+            <img :src="$imgServer + cs.avatar" class="image" />
             <div style="padding: 14px;">
               <span>{{ cs.name }}</span>
             </div>
