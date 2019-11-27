@@ -6,6 +6,9 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
 import axios from "axios";
+
+import VueSocketIO from "vue-socket.io";
+
 let mainUrl =
   process.env.NODE_ENV === "production"
     ? "https://talatan.com:3007/"
@@ -15,6 +18,21 @@ let mainUrl =
 axios.defaults.baseURL = mainUrl;
 Vue.prototype.$imgServer = mainUrl;
 // var token = window.localStorage.getItem("token");
+
+Vue.use(
+  new VueSocketIO({
+    debug: true,
+    connection: mainUrl
+    // vuex: {
+    //   store
+    //   // options: {
+    //   //   useConnectionNamespace: true
+    //   // }
+    // }
+    // options: { path: "/running/" } //Optional options
+  })
+);
+
 //请求拦截。所有http请求增加token
 axios.interceptors.request.use(
   config => {
