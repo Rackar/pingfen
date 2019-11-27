@@ -214,6 +214,8 @@ export default {
         console.log(res.data.data);
         if (res.status == 200 && res.data.status == 1) {
           // this.$router.push("/list");
+
+          this.$socket.emit("huanjie", obj);
           if (cansaiId && huanjieId) {
             this.$message.success("本选手打分开始");
             this.lastCsId = cansaiId;

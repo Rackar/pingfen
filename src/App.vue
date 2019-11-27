@@ -8,6 +8,8 @@
       <div id="nav">
         <router-link to="/">录入页</router-link>&nbsp;|
         <router-link to="/control">比赛控制页</router-link>&nbsp;|
+        <router-link to="/socket">打分结果页</router-link>&nbsp;|
+        <router-link to="/result">最终排名页</router-link>&nbsp;|
         <router-link to="/dafen">评委打分页</router-link>&nbsp;|
         <router-link to="/login">评委登录页</router-link>&nbsp;|
         <span class="linkspan" @click="logout">评委注销</span>

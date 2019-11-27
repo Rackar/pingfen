@@ -145,6 +145,12 @@ export default {
         .then(() => {
           this.dialogVisible = false;
           let { cansaiId, huanjieId, pingweiId, fenshu } = this.dafen;
+          this.$socket.emit("pingfen", {
+            fenshu,
+            cansaiId,
+            huanjieId,
+            pingweiId
+          });
           let obj = {
             cansaiId,
             huanjieId,
