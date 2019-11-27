@@ -3,7 +3,7 @@
     <el-col
       :xs="{ span: 24, offset: 0 }"
       :sm="{ span: 18, offset: 3 }"
-      :md="{ span: 10, offset: 7 }"
+      :md="{ span: 12, offset: 6 }"
     >
       <div id="nav">
         <router-link to="/">录入页</router-link>&nbsp;|

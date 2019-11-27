@@ -9,10 +9,15 @@
       <el-button type="primary" style="margin-top: 12px;" @click="next"
         >下一步</el-button
       >
-      <el-button type="primary" style="margin-top: 12px;" @click="showResult"
-        >展示汇总结果</el-button
-      >
     </div>
+    <div v-if="showPingfenResult">
+      <h3>打分结果：</h3>
+      <el-table :data="table" style="width: 100%">
+        <el-table-column prop="pingwei" label="评委"></el-table-column>
+        <el-table-column prop="fenshu" label="分数"></el-table-column>
+      </el-table>
+    </div>
+
     <el-row>
       <el-col :xs="12" :md="12">
         <div class="aboutstep">
@@ -36,10 +41,16 @@
           >开始评分</el-button
         >
         <el-button
-          type="success"
+          type="warning"
           style="margin-top: 12px;"
           @click="setNotActive"
           >停止评分</el-button
+        >
+        <el-button type="success" style="margin-top: 12px;" @click="showResult"
+          >展示本次结果</el-button
+        >
+        <el-button type="warning" style="margin-top: 12px;" @click="clearResult"
+          >清空</el-button
         >
         <template v-for="cs in cansai">
           <el-card
@@ -61,6 +72,7 @@
   </div>
 </template>
 <script>
+import getArrObjNameFromId from "../utils/tools";
 export default {
   data() {
     return {
@@ -68,12 +80,15 @@ export default {
       huanjie: [
         { title: "环节1进行", description: "完成时间：未完成", active: false }
       ],
+      table: [],
       cansai: [],
       cansaiClass: "",
       selectId: "",
       cansaiSelect: "",
       huanjieSelect: "",
-      huanjieSelectid: ""
+      huanjieSelectid: "",
+      lastCsId: "",
+      showPingfenResult: false
     };
   },
   created() {
@@ -114,7 +129,31 @@ export default {
         }
       });
     },
-    showResult() {},
+    showResult() {
+      this.$axios.get("/noauth/pingfen/all").then(res => {
+        console.log(res);
+        let data = res.data.data;
+        if (res.status == 200 && res.data.status == 1) {
+          let arr = data.record.filter(record => {
+            return (
+              record.cansaiId === this.lastCsId &&
+              record.huanjieId === this.huanjieSelectid
+            );
+          });
+          this.table = [];
+          arr.forEach(record => {
+            let pingwei = getArrObjNameFromId(data.pw, record.pingweiId);
+            this.table.push({ pingwei, fenshu: record.fenshu });
+          });
+        }
+      });
+      this.showPingfenResult = true;
+    },
+    clearResult() {
+      this.showPingfenResult = false;
+      this.selectId = "";
+      this.cansaiSelect = "";
+    },
     getHuanjieData() {},
     setActive() {
       if (this.selectId && this.huanjieSelectid) {
@@ -125,8 +164,8 @@ export default {
     },
     setNotActive() {
       this.changeHuanjie("", "");
-      this.selectId = "";
-      this.cansaiSelect = "";
+      // this.selectId = "";
+      // this.cansaiSelect = "";
     },
     last() {
       if (this.active - 1 >= 0) {
@@ -177,6 +216,7 @@ export default {
           // this.$router.push("/list");
           if (cansaiId && huanjieId) {
             this.$message.success("本选手打分开始");
+            this.lastCsId = cansaiId;
           } else {
             this.$message.warning("本选手打分结束");
           }

@@ -1,7 +1,8 @@
 <template>
   <div>
     <h3>打分页</h3>
-    <el-button @click="goCheck">去打分</el-button>
+    <el-button @click="goCheck" type="primary">去打分</el-button>
+    <div style="margin-top:20px;">我的打分记录</div>
     <el-table :data="table" style="width: 100%">
       <el-table-column type="index" label="序号"></el-table-column>
 
@@ -11,19 +12,22 @@
       <el-table-column prop="time" label="时间"></el-table-column>
     </el-table>
     <el-dialog
-      title="提示"
+      title="打分"
       :visible.sync="dialogVisible"
       width="60%"
       :before-close="handleClose"
     >
       <div>
-        <h1>现在在给环节 {{ huanjie }} 的 {{ cansai }} 打分</h1>
-        <div>分数上限：100，分数下限：1</div>
+        <h1>
+          当前环节{{ huanjie }}，为参赛者
+          <span style="color:red;">{{ cansai }} </span> 打分
+        </h1>
+        <div>分数上限：100，分数下限：0</div>
 
         <el-input-number
           v-model="dafen.fenshu"
           @change="handleChange"
-          :min="1"
+          :min="0"
           :max="100"
           label="描述文字"
         ></el-input-number>
@@ -81,7 +85,7 @@ export default {
           // this.$router.push("/list");
           this.alldata = data;
           let list = data.record.filter(element => {
-            return element.pingweiId == this.myPingweiId;
+            return element.pingweiId == this.pingweiid;
           });
           this.table = [];
           list.forEach(element => {
@@ -124,7 +128,7 @@ export default {
           if (flow.cansaiId !== "" && flow.huanjieId !== "") {
             this.dafen.cansaiId = flow.cansaiId;
             this.dafen.huanjieId = flow.huanjieId;
-            this.dafen.pingweiId = "pingweiid";
+            this.dafen.pingweiId = this.pingweiid;
             this.dialogVisible = true;
             this.cansai = getArrObjNameFromId(this.alldata.cs, flow.cansaiId);
             this.huanjie = getArrObjNameFromId(this.alldata.hj, flow.huanjieId);
