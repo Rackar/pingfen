@@ -6,15 +6,26 @@
       :md="{ span: 10, offset: 7 }"
     >
       <div id="nav">
-        <router-link to="/">录入页</router-link>|
-        <router-link to="/control">比赛控制页</router-link>|
-        <router-link to="/dafen">评委打分页</router-link>
-        <router-link to="/login">评委登录页</router-link>
+        <router-link to="/">录入页</router-link>&nbsp;|
+        <router-link to="/control">比赛控制页</router-link>&nbsp;|
+        <router-link to="/dafen">评委打分页</router-link>&nbsp;|
+        <router-link to="/login">评委登录页</router-link>&nbsp;|
+        <span class="linkspan" @click="logout">评委注销</span>
       </div>
       <router-view />
     </el-col>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    logout() {
+      this.$store.commit("logout_delToken");
+      this.$router.push("/login");
+    }
+  }
+};
+</script>
 
 <style lang="stylus">
 #app {
@@ -24,5 +35,12 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.linkspan{
+  cursor:pointer;
+  &:hover{
+    color:blue;
+  }
+
 }
 </style>

@@ -117,7 +117,11 @@ export default {
     showResult() {},
     getHuanjieData() {},
     setActive() {
-      this.changeHuanjie(this.selectId, this.huanjieSelectid);
+      if (this.selectId && this.huanjieSelectid) {
+        this.changeHuanjie(this.selectId, this.huanjieSelectid);
+      } else {
+        this.$message.error("请选择要打分的选手");
+      }
     },
     setNotActive() {
       this.changeHuanjie("", "");
@@ -171,7 +175,11 @@ export default {
         console.log(res.data.data);
         if (res.status == 200 && res.data.status == 1) {
           // this.$router.push("/list");
-          this.$message.success("成功");
+          if (cansaiId && huanjieId) {
+            this.$message.success("本选手打分开始");
+          } else {
+            this.$message.warning("本选手打分结束");
+          }
         } else {
           this.$message.error("保存出现问题，请重试");
         }
