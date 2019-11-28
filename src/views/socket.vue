@@ -99,13 +99,13 @@
             </div>
           </div>
         </div>
-        <div class="markJury" style="zoom: 100%;" v-show="showid == 3">
+        <div class="markJury" style="zoom: 80%;" v-if="showid == 3">
           <div id="markJurybg"></div>
           <div class="top">
             <div class="mark-title">
               <div class="left-title">
                 <div class="title-logo-container">
-                  <img :src="markObejct.img">
+                  <img :src="getavatar(markObejct)">
                   <div class="outterbox">
                     <div class="inner_box">{{markObejct.name}}</div>
                   </div>
@@ -134,10 +134,10 @@
               <div class="left" tabindex="3" style="overflow: hidden; outline: none;">
                 <div class="jury-list" style="transition: transform 0ms ease-out 0s; transform: translate3d(0px, 0px, 0px);height: 100%;">
                   <el-scrollbar style="height: 100%;">
-                    <div class="jury-item-container" v-for="(item,index) in pweis" :key="index">
+                    <div class="jury-item-container" v-for="(item,index) in pw" :key="index">
                       <div class="jury-item toMark">
                         <div class="jury-avatar">
-                          <img :src="item.img" alt="3">
+                          <img :src="getavatar(item)" alt="3">
                           <div :class="[item.score==-1?'':'marked','mark']">{{item.score==-1?"未评分":item.score}}</div>
                         </div>
                         <p class="jury-name">{{item.name}}</p>
@@ -150,10 +150,10 @@
             </div>
             <div class="right">
               <el-scrollbar style="height: 100%;">
-                <div class="remark-container" style="margin-top: 0px;" v-for="(item,index) in pweis" :key="index">
+                <div class="remark-container" style="margin-top: 0px;" v-for="(item,index) in jb" :key="index">
                   <div class="jury-remark-container">
                     <div class="left-left">
-                      <img :src="item.img" alt="1" class="jury-remark-avatar">
+                      <img :src="getavatar(item)" alt="1" class="jury-remark-avatar">
                     </div>
                     <div class="right-right">
                       <div class="top">
@@ -186,41 +186,38 @@
         <ul class="clearfix s_bottom_box ">
           <span class="bottom_radius bottom_radius_left"></span>
           <li class="li-home" @click="bottomliclick(0)">
-            <a href="#" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a>
+            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a> /#/socket
             <span class="li_span">主画面</span>
-            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="主画面"></a>
+            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="主画面"></a>
           </li>
           <li class="li-home" @click="bottomliclick(1)">
-            <a href="#" class="s_b_icon home" tabindex="-1" id="bottom_home" title="答题阶段"></a>
+            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="答题阶段"></a>
             <span class="li_span">答题结果</span>
-            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="答题阶段"></a>
+            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="答题阶段"></a>
           </li>
-
-
-          <li class="li-home" @click="bottomliclick(1)">
-            <a href="#" class="s_b_icon home" tabindex="-1" id="bottom_home" title="比赛环节"></a>
-            <span class="li_span">比赛环节</span>
-            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="比赛环节"></a>
-          </li>
-
-
-
-          <li class="li-mark" @click="bottomliclick(2)">
-            <a tabindex="-1" title="评委评分" href="#" id="bottom_mark" class="s_b_icon mark"></a>
+          <li class="li-mark" @click="bottomliclick(3)">
+            <a tabindex="-1" title="评委评分" href="javascript:void(0);" id="bottom_mark" class="s_b_icon mark"></a>
             <span class="li_span">评委评分 <i></i></span> 
-            <a tabindex="-1" href="#" class="menu-name"></a>
+            <a tabindex="-1" href="javascript:void(0);" class="menu-name"></a>
+          </li>
+
+
+          <li class="li-home" @click="bottomliclick(2)">
+            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="比赛环节"></a>
+            <span class="li_span">比赛环节</span>
+            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="比赛环节"></a>
           </li>
           <!---->
           <!---->
           <li class="right li-setting">
-            <a tabindex="-1" href="https://www.wmnetwork.cc/manage/index?mid=wfp3c2ht" class="s_b_icon setting"></a> 
+            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a> 
             <span class="li_span">设置</span>
-            <a tabindex="-1" href="https://www.wmnetwork.cc/manage/index?mid=wfp3c2ht" class="menu-name">设置</a>
+            <a tabindex="-1" href="javascript:void(0);" class="menu-name">设置</a>
           </li>
           <li class="right li-fullscreen">
-            <a tabindex="-1" href="javascript:;" class="s_b_icon fullscreen"></a> 
+            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a> 
             <span class="li_span">全屏，快捷键'F11'<i></i></span> 
-            <a tabindex="-1" href="javascript:;" class="menu-name">全屏</a>
+            <a tabindex="-1" href="javascript:void(0);" class="menu-name">全屏</a>
           </li>
           
         </ul>
@@ -291,154 +288,25 @@ export default {
       cs:[],//参赛选手
       pw:[],//评委
       jb:[],//嘉宾
-
+      adminid:'',
+      ditifen:[],
+      markObejct:{},
       showid:0,
-
       csshow:{},
-      
-      markObejct:{
-          img:"http://res.wmnetwork.cc/res/manage/img/mark_obj.png",
-          name:'内蒙古测绘地理信息局代表队',
-          score:"1.00",
-          id:0,
-          marked:2,
-        },
       results: [],
-      pweis:[
-          {
-          score:3,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
 
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
 
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:2,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-        ],
-        jury:[
-          {
-          score:3,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:-1,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-          {
-          score:2,
-          name:"谭美淋",
-          img:"https://www.wmnetwork.cc/res/common/img/avatar.png",
-          work:'内蒙古自治区航空遥感测绘院'
-
-          },
-        ],
     };
   },
   methods: {
     getavatar(item){
-      return `https://talatan.com:3007/${item.avatar}`
+      if(item.avatar){
+        return `${this.$imgServer}${item.avatar}`
+      }
+      else{
+        return ''
+      }
+      
     },
     bottomliclick(index){
       this.showid=index
@@ -448,10 +316,16 @@ export default {
 
       // }
     },
-    get_dati_score(){
-
-      //item
-      return 0
+    get_dati_score(item){
+      let fenshu=this.ditifen.filter(ditione=>{
+        return ditione.cansaiId==item._id
+      })
+      if(fenshu.length>0){
+        return fenshu[0].fenshu
+      }
+      else{
+        return 0
+      }
     },
     getMemberData() {
       this.$axios.get("/noauth/pingfen/all").then(res => {
@@ -460,12 +334,27 @@ export default {
         if (res.status == 200 && res.data.status == 1) {
            this.cs = data.cs;
            this.pw =data.pw.filter(pwone=>{
-             return pwone.type==0
+             return pwone.pwtype=="评委" && pwone.username !="0"
            })
             this.jb =data.pw.filter(pwone=>{
-             return pwone.type==1
+             return pwone.pwtype=="嘉宾"
            })
-           
+           this.adminid =data.pw.filter(pwone=>{
+             return pwone.pwtype=="评委" && pwone.username =="0"
+           })[0]._id
+           this.ditifen =data.record.filter(recordne=>{
+             return recordne.pingweiId==this.adminid 
+           })
+           this.flowid=data.flow[0].cansaiId
+
+           this.markObejct=this.cs.filter(pwone=>{
+             return pwone._id==this.flowid
+           })[0]
+
+
+
+
+
         } else {
           this.$message.error("保存出现问题，请重试");
         }
