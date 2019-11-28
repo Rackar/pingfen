@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <Nav />
     <h1>比赛环节控制器，只有在评分环节才可以打分</h1>
     <div>
       <h3>环节：{{ huanjieSelect }} ， 选手：{{ cansaiSelect }}</h3>
@@ -73,7 +74,11 @@
 </template>
 <script>
 import getArrObjNameFromId from "../utils/tools";
+import Nav from "./nav";
 export default {
+  components: {
+    Nav
+  },
   data() {
     return {
       active: 0,

@@ -1,5 +1,6 @@
 <template>
   <div class="home" v-loading="loading">
+    <Nav></Nav>
     <div class="card">
       <h3>新增评委</h3>
       <el-upload
@@ -164,7 +165,11 @@
 </template>
 
 <script>
+import Nav from "./nav";
 export default {
+  components: {
+    Nav
+  },
   data() {
     return {
       rulesPw: {
@@ -419,5 +424,8 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.demo-form-inline {
+  text-align: left;
 }
 </style>

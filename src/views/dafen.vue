@@ -1,16 +1,22 @@
 <template>
   <div class="dafen">
-    <h3>打分页</h3>
+    <h3>评委打分</h3>
     <el-button @click="goCheck" type="primary">去打分</el-button>
-    <div style="margin-top:20px;">我的打分记录</div>
-    <el-table :data="table" style="width: 100%">
-      <el-table-column type="index" label="序号"></el-table-column>
+    <div class="maintable">
+      <div style="margin-top:20px;">我的打分记录</div>
+      <el-table :data="table" style="width: 100%;">
+        <el-table-column type="index" label="序号"></el-table-column>
 
-      <!-- <el-table-column prop="huanjie" label="环节"></el-table-column> -->
-      <el-table-column prop="cansai" label="参赛者"></el-table-column>
-      <el-table-column prop="fenshu" label="分数"></el-table-column>
-      <!-- <el-table-column prop="time" label="时间"></el-table-column> -->
-    </el-table>
+        <!-- <el-table-column prop="huanjie" label="环节"></el-table-column> -->
+        <el-table-column prop="cansai" label="参赛者"></el-table-column>
+        <el-table-column prop="fenshu" label="分数"></el-table-column>
+        <!-- <el-table-column prop="time" label="时间"></el-table-column> -->
+      </el-table>
+    </div>
+
+    <div class="tail">
+      <el-button @click="logout" type="">退出登录</el-button>
+    </div>
     <el-dialog
       title="打分"
       :visible.sync="dialogVisible"
@@ -77,6 +83,10 @@ export default {
     this.getTableData();
   },
   methods: {
+    logout() {
+      this.$store.commit("logout_delToken");
+      this.$router.push("/login");
+    },
     getTableData() {
       //axios
       this.$axios.get("/noauth/pingfen/all").then(res => {
@@ -190,7 +200,23 @@ export default {
 };
 </script>
 <style>
+.dafen {
+  /* height: 40%; */
+}
+.maintable {
+  overflow-y: auto;
+
+  height: 60vh;
+}
 .message-logout {
   width: 220px !important;
+}
+.tail {
+  position: fixed;
+  z-index: 2;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 20px;
 }
 </style>
