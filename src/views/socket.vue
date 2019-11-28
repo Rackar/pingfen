@@ -212,7 +212,7 @@
           </div>
         </div>
       </div>
-      <div id="url_code" class="pop-ecode title hover zoom1" style="position: fixed; left: 1390px; top: 20px; transition: all 0.5s ease 0s;" v-show="showQT==true">
+      <div id="url_code" class="pop-ecode title hover zoom1" style="position: fixed; right: 20px; top: 20px; transition: all 0.5s ease 0s;" v-show="showQT==true">
         <span class="ecode-image" ref="ecodeimage">
           <!-- <img class="url_img" src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQEM8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyRmM4aHN2M3dkcDAxY1RjMXh1MUIAAgQ3P9pdAwQAjScA"> -->
         </span>
