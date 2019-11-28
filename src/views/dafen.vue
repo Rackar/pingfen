@@ -1,28 +1,29 @@
 <template>
-  <div>
+  <div class="dafen">
     <h3>打分页</h3>
     <el-button @click="goCheck" type="primary">去打分</el-button>
     <div style="margin-top:20px;">我的打分记录</div>
     <el-table :data="table" style="width: 100%">
       <el-table-column type="index" label="序号"></el-table-column>
 
-      <el-table-column prop="huanjie" label="环节"></el-table-column>
+      <!-- <el-table-column prop="huanjie" label="环节"></el-table-column> -->
       <el-table-column prop="cansai" label="参赛者"></el-table-column>
       <el-table-column prop="fenshu" label="分数"></el-table-column>
-      <el-table-column prop="time" label="时间"></el-table-column>
+      <!-- <el-table-column prop="time" label="时间"></el-table-column> -->
     </el-table>
     <el-dialog
       title="打分"
       :visible.sync="dialogVisible"
-      width="60%"
+      width="100%"
       :before-close="handleClose"
     >
       <div>
         <h1>
-          当前环节{{ huanjie }}，为参赛者
+          <!-- 当前环节{{ huanjie }}， -->
+          为参赛者
           <span style="color:red;">{{ cansai }} </span> 打分
         </h1>
-        <div>分数上限：100，分数下限：0</div>
+        <div>分数下限：0 ，分数上限：100</div>
 
         <el-input-number
           v-model="dafen.fenshu"
@@ -141,7 +142,9 @@ export default {
       });
     },
     sumitScore() {
-      this.$confirm("确认提交本分数？")
+      this.$confirm("确认提交本分数？", "打分", {
+        customClass: "message-logout"
+      })
         .then(() => {
           this.dialogVisible = false;
           let { cansaiId, huanjieId, pingweiId, fenshu } = this.dafen;
@@ -175,7 +178,9 @@ export default {
         });
     },
     handleClose(done) {
-      this.$confirm("未提交分数，确认关闭？")
+      this.$confirm("未提交分数，确认关闭？", "取消打分", {
+        customClass: "message-logout"
+      })
         .then(() => {
           done();
         })
@@ -184,3 +189,8 @@ export default {
   }
 };
 </script>
+<style>
+.message-logout {
+  width: 220px !important;
+}
+</style>
