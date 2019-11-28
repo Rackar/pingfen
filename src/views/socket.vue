@@ -11,28 +11,28 @@
             <div
               style="background-image: url(&quot;https://img2.wmnetwork.cc/res/screen/img/bg/diqiu/22_big.jpg&quot;); position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
             </div>
-            <div data-v-5e163b0b="" class="mark-title">
+            <div  class="mark-title">
               <div class="left-title">{{title}}</div>
               <div class="pr"></div>
             </div>
-            <div data-v-5e163b0b="" id="markScreen" class="mark-list one">
-              <div data-v-5e163b0b="" id="markScreenBox" class="mark-list-box">
+            <div  id="markScreen" class="mark-list one">
+              <div  id="markScreenBox" class="mark-list-box">
                 <el-scrollbar style="height: 100%;">
-                <div data-v-5e163b0b="" class="mark-item-container one" v-for="(item,index) in cs" :key="index" @click="pingfen(item)">
-                  <div data-v-593b4aee="" data-v-5e163b0b="" class="list-item">
-                    <div data-v-593b4aee="" class="left">
-                      <img data-v-593b4aee="" :src="get(item)" class="avatar">
-                      <div data-v-593b4aee="" class="info">
-                        <div data-v-593b4aee="" class="title outterbox 15522">
-                          <div data-v-593b4aee="" class="评分对象1" style="display: inline-block;">{{item.name}}</div>
+                <div  class="mark-item-container one" v-for="(item,index) in cs" :key="index" @click="pingfen(item)">
+                  <div  class="list-item">
+                    <div  class="left">
+                      <img  :src="getavatar(item)" class="avatar">
+                      <div  class="info">
+                        <div  class="title outterbox 15522">
+                          <div  class="评分对象1" style="display: inline-block;">{{item.name}}</div>
                         </div>
-                        <div data-v-593b4aee="" class="description">{{item.description}}</div>
+                        <div  class="description">{{item.description}}</div>
                       </div>
                     </div>
-                    <div data-v-593b4aee="" class="right">
-                      <div data-v-593b4aee="" class="marks-container">
-                        <div data-v-593b4aee="" class="score-mark">{{item.score==-1?"...":item.score}}</div>
-                        <div data-v-593b4aee="" class="type">{{item.score==-1?"待评分":"均分"}}</div>
+                    <div  class="right">
+                      <div  class="marks-container">
+                        <div  class="score-mark">{{item.score==-1?"...":item.score}}</div>
+                        <div  class="type">{{item.score==-1?"待评分":"均分"}}</div>
                       </div>
                     </div>
                   </div>
@@ -370,7 +370,7 @@ export default {
     
   },
   methods: {
-    get(item){
+    getavatar(item){
       return `https://talatan.com:3007/${item.avatar}`
     },
     getMemberData() {
