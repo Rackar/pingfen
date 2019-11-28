@@ -6,13 +6,63 @@
     </div>
     <div class="mark">
       <div class="mark">
-        <div class="mark-container" style="zoom: 100%;" >
+        <div class="mark-container" style="zoom: 100%;" v-show="this.showid == 0">
+          <div style="position: relative;">
+            <div style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
+            </div>
+            <div  class="mark-title" style="margin-top: 25%;">
+              <div class="left-title" style="margin: 0 auto;    margin-top: -10%;">{{title}}</div>
+              <div class="pr"></div>
+            </div>
+             <div  class="mark-title" style="margin-top: 5%;font-size: 30px;">
+              <div class="left-title" style="margin: 0 auto;">主办单位：{{zhuban}}</div>
+              <div class="pr"></div>
+            </div>
+          </div>
+        </div>
+        <div class="mark-container" style="zoom: 100%;" v-show="showid == 1">
           <div style="position: relative;">
             <div
-              style="background-image: url(&quot;https://img2.wmnetwork.cc/res/screen/img/bg/diqiu/22_big.jpg&quot;); position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
+              style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
             </div>
             <div  class="mark-title">
-              <div class="left-title">{{title}}</div>
+              <div class="left-title" style="width: 100%;">{{title}}-答题结果</div>
+              <div class="pr"></div>
+            </div>
+            <div  id="markScreen" class="mark-list one">
+              <div  id="markScreenBox" class="mark-list-box">
+                <el-scrollbar style="height: 100%;">
+                <div  class="mark-item-container one" v-for="(item,index) in cs" :key="index" @click="pingfen(item)">
+                  <div  class="list-item">
+                    <div  class="left">
+                      <img  :src="getavatar(item)" class="avatar">
+                      <div  class="info">
+                        <div  class="title outterbox 15522">
+                          <div  class="评分对象1" style="display: inline-block;">{{item.name}}</div>
+                        </div>
+                        <div  class="description">{{item.description}}</div>
+                      </div>
+                    </div>
+                    <div  class="right">
+                      <div  class="marks-container">
+                        <div  class="score-mark">{{get_dati_score(item)}}</div>
+                        <div  class="type">分</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </el-scrollbar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mark-container" style="zoom: 100%;" v-show="showid == 2">
+          <div style="position: relative;">
+            <div
+              style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
+            </div>
+            <div  class="mark-title">
+              <div class="left-title" style="width: 100%;">{{title}}-答题结果</div>
               <div class="pr"></div>
             </div>
             <div  id="markScreen" class="mark-list one">
@@ -49,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="markJury" style="zoom: 100%;" v-show="false">
+        <div class="markJury" style="zoom: 100%;" v-show="showid == 3">
           <div id="markJurybg"></div>
           <div class="top">
             <div class="mark-title">
@@ -135,15 +185,30 @@
       <div class="s_bottom_link" >  
         <ul class="clearfix s_bottom_box ">
           <span class="bottom_radius bottom_radius_left"></span>
-          <li class="li-home">
-            <a href="#/index?mid=wfp3c2ht" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面，快捷键0"></a>
-            <span class="li_span">主画面，快捷键0</span>
-            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="主画面，快捷键0">主画面</a>
+          <li class="li-home" @click="bottomliclick(0)">
+            <a href="#" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a>
+            <span class="li_span">主画面</span>
+            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="主画面"></a>
           </li>
-          <li class="li-mark">
-            <a tabindex="-1" title="评委评分，快捷键P" href="https://www.wmnetwork.cc/screen/#/mark?mid=wfp3c2ht" id="bottom_mark" class="s_b_icon mark"></a>
-            <span class="li_span">评委评分，快捷键M <i></i></span> 
-            <a tabindex="-1" href="https://www.wmnetwork.cc/screen/#/mark?mid=wfp3c2ht" class="menu-name">评委评分</a>
+          <li class="li-home" @click="bottomliclick(1)">
+            <a href="#" class="s_b_icon home" tabindex="-1" id="bottom_home" title="答题阶段"></a>
+            <span class="li_span">答题结果</span>
+            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="答题阶段"></a>
+          </li>
+
+
+          <li class="li-home" @click="bottomliclick(1)">
+            <a href="#" class="s_b_icon home" tabindex="-1" id="bottom_home" title="比赛环节"></a>
+            <span class="li_span">比赛环节</span>
+            <a href="#/index?mid=wfp3c2ht" class="menu-name" tabindex="-1" title="比赛环节"></a>
+          </li>
+
+
+
+          <li class="li-mark" @click="bottomliclick(2)">
+            <a tabindex="-1" title="评委评分" href="#" id="bottom_mark" class="s_b_icon mark"></a>
+            <span class="li_span">评委评分 <i></i></span> 
+            <a tabindex="-1" href="#" class="menu-name"></a>
           </li>
           <!---->
           <!---->
@@ -217,7 +282,8 @@ export default {
   },
   data() {
     return {
-      title:'assss',
+      title:'2019年第一次啊党委比赛ADAS',
+      zhuban:'内蒙古自治区测绘地理信息局',
       msg: {},
       huanjie: { name: "", id: "" },
       cansai: { name: "", id: "" },
@@ -225,6 +291,10 @@ export default {
       cs:[],//参赛选手
       pw:[],//评委
       jb:[],//嘉宾
+
+      showid:0,
+
+      csshow:{},
       
       markObejct:{
           img:"http://res.wmnetwork.cc/res/manage/img/mark_obj.png",
@@ -366,12 +436,22 @@ export default {
         ],
     };
   },
-  computed: {
-    
-  },
   methods: {
     getavatar(item){
       return `https://talatan.com:3007/${item.avatar}`
+    },
+    bottomliclick(index){
+      this.showid=index
+    },
+    showThePage(){
+      // if(showid==0){
+
+      // }
+    },
+    get_dati_score(){
+
+      //item
+      return 0
     },
     getMemberData() {
       this.$axios.get("/noauth/pingfen/all").then(res => {

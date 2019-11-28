@@ -16,6 +16,7 @@
       </div>
       <router-view />
     </el-col>
+    
   </div>
 </template>
 <script>
