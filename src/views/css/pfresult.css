@@ -757,7 +757,7 @@
 .markJury>.bottom>.right {
     width: 500px;
     height: 680px;
-    padding: 2rem 2.5rem;
+    padding: 1rem 1.5rem;
     background: rgba(0,0,0,.3);
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

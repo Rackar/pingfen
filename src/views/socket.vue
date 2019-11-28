@@ -115,9 +115,9 @@
                 <div class="info">
                   <div class="marked">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAiCAYAAAA3WXuFAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAAghJREFUWIXN18+LTXEYx/HXvTPjYjExTIwVMguzk5rRTPEHGCmzkdTsRHaYYiGzkJ21ZKusTjYsiPJrI2UxE2WS2ChZSMQYGRbPvZoR+n7Pdc391HdxO5/79D7fp/P8qExPTyupXdiHYfRiHm9xFwUepgQpimLR784SIBtwEaO/ebYJg5jAZRzBx5zg1UyYATz+A8yvOlj39rUKqBv3sS7jP/0ihZVWAF1AT4a/oX6cSzWnAvXjQAmYhiawJsWYCrS/PAvowN4UYyrQ9vIsPzWYYkoFWtsESEO9KaZUoLkmQLJipAK9agKkoRcpplSgG02AZMVIBbqKd+VZPMO9FGMq0BccLY3D4VRjTqW+gkv5LM7iTqo5t7kewvkM/+n6SVYuEJzAHjz4i+cWdorbyVKZeQiu1c8ARsQEMI/XAvR5ybilgRp6Wj//TGVS1lK1HVAzKVslpsgaluErZvFBE0U0BagH27ADm7EV6+tAK9Elbvq7aKCf8B5vMCN62CM8wcuyQH3i0x4Va07KtFcRt1XDamzE0ILn38RqdFO0oqkUoC04jnGsSIDIUYd4uWFM4raY0xctZpUFi+IkToo3/J+6jmNFUcwQue8WRe7MEsDAbkyNjY2NEDd0Ssaa0kLNYqgqvpp20HKMV0X9aBd1VUVTbBfNtV3rqIrctYtqnaLUE5V0KdWBzz8AEbJb8TD58fwAAAAASUVORK5CYII="><span
-                      style="width: 142px; display: inline-block;">已评{{markObejct.marked}}位</span></div>
+                      style="width: 142px; display: inline-block;">已评{{gethasPingd()}}位</span></div>
                   <div class="score-container" style="margin-top: 5px; padding-top: 10px;">
-                    <div class="score" style="display: inline-block; font-size: 40px;">{{markObejct.score}}</div>
+                    <div class="score" style="display: inline-block; font-size: 40px;">{{gethasPingd_avg()}}</div>
                     <div class="type" style="display: inline-block; font-size: 25px;">均分</div>
                   </div>
                   <div class="type-link">
@@ -138,7 +138,7 @@
                       <div class="jury-item toMark">
                         <div class="jury-avatar">
                           <img :src="getavatar(item)" alt="3">
-                          <div :class="[item.score==-1?'':'marked','mark']">{{item.score==-1?"未评分":item.score}}</div>
+                          <div :class="[(item.score && item.score) >0?'marked':'','mark']">{{getscore(item)}}</div>
                         </div>
                         <p class="jury-name">{{item.name}}</p>
                         <p class="jury-desc">{{item.work}}</p>
@@ -151,17 +151,17 @@
             <div class="right">
               <el-scrollbar style="height: 100%;">
                 <div class="remark-container" style="margin-top: 0px;" v-for="(item,index) in jb" :key="index">
-                  <div class="jury-remark-container">
-                    <div class="left-left">
+                  <div class="jury-remark-container" v-show="item.score >0">
+                    <!-- <div class="left-left">
                       <img :src="getavatar(item)" alt="1" class="jury-remark-avatar">
-                    </div>
+                    </div> -->
                     <div class="right-right">
                       <div class="top">
                         <div class="name-container">
                           <div class="jury">嘉宾</div>
                           <div class="name">{{item.name}}</div>
                         </div>
-                        <div class="mark">{{item.score==-1?"未评分":"评分："+item.score+"分"}}</div>
+                        <div class="mark">{{"评分："+item.score+"分"}}</div>
                       </div>
                       <!---->
                     </div>
@@ -195,6 +195,12 @@
             <span class="li_span">答题结果</span>
             <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="答题阶段"></a>
           </li>
+          <li class="li-home" @click="bottomliclick(2)">
+            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="现场参赛"></a>
+            <span class="li_span">现场参赛</span>
+            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="现场参赛"></a>
+          </li>
+
           <li class="li-mark" @click="bottomliclick(3)">
             <a tabindex="-1" title="评委评分" href="javascript:void(0);" id="bottom_mark" class="s_b_icon mark"></a>
             <span class="li_span">评委评分 <i></i></span> 
@@ -202,11 +208,11 @@
           </li>
 
 
-          <li class="li-home" @click="bottomliclick(2)">
+          <!-- <li class="li-home" @click="bottomliclick(2)">
             <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="比赛环节"></a>
             <span class="li_span">比赛环节</span>
             <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="比赛环节"></a>
-          </li>
+          </li> -->
           <!---->
           <!---->
           <li class="right li-setting">
@@ -241,30 +247,9 @@ export default {
       console.log(value);
     },
     pingfenResult(value) {
-      this.msg = value;
-      if (
-        value.cansaiId == this.cansai.id &&
-        value.huanjieId == this.huanjie.id
-      ) {
-        //评委id不在result中
-        let exist = this.results.some(res => {
-          return res.pingweiId == value.pingweiId;
-        });
-        debugger;
-        if (!exist) {
-          this.results.push({
-            pingweiId: value.pingweiId,
-            pingweiName: getArrObjNameFromId(this.member.pw, value.pingweiId),
-            fenshu: value.fenshu
-          });
-        } else {
-          this.results.forEach(element => {
-            if (element.pingweiId == value.pingweiId) {
-              element.fenshu = value.fenshu;
-            }
-          });
-        }
-      }
+
+      this.updatescore(this.pw,value)
+      this.updatescore(this.jb,value)
     },
     huanjieChange(value) {
       this.huanjie.id = value.huanjieId;
@@ -291,6 +276,8 @@ export default {
       adminid:'',
       ditifen:[],
       markObejct:{},
+
+      flowid:'',
       showid:0,
       csshow:{},
       results: [],
@@ -299,6 +286,24 @@ export default {
     };
   },
   methods: {
+    updatescore(item,value){
+      let findi=-1;
+      let exist = item.some((res,index) => {
+        if(res._id == value.pingweiId){
+          findi=index
+          return true
+        }
+        else{
+          return false
+        }
+      });
+      if (exist) {
+        item[findi].score=  value.fenshu
+        let _object=item[findi]
+        _object.score=  value.fenshu
+        item.splice(findi,1,_object)
+      }
+    },
     getavatar(item){
       if(item.avatar){
         return `${this.$imgServer}${item.avatar}`
@@ -306,6 +311,45 @@ export default {
       else{
         return ''
       }
+      
+    },
+    gethasPingd(){
+      return this.pw.filter(pwone=>{
+        return pwone.score >0
+      }).length
+    },
+    gethasPingd_avg(){
+      let scores=[]
+      let Pingds= this.pw.filter(pwone=>{
+        return pwone.score >0
+      })
+      for (let index = 0; index < Pingds.length; index++) {
+        scores.push(Pingds[index].score)
+      }
+      scores.sort(function(a,b){
+        return a - b;
+      })
+      if(scores.length>3){
+        scores.splice(scores.length-1,1).splice(0,1)
+      }
+      
+      let all=0;
+      for (let index = 0; index < Pingds.length; index++) {
+        all+=scores[index]
+      }
+      return all/ scores.length
+    },
+    getscore(item){
+      return item.score >0?item.score:"未评分"
+    },
+    getpinfen_by_pw(){
+      //item
+      // if(item.avatar){
+      //   return `${this.$imgServer}${item.avatar}`
+      // }
+      // else{
+      //   return ''
+      // }
       
     },
     bottomliclick(index){
@@ -346,15 +390,19 @@ export default {
              return recordne.pingweiId==this.adminid 
            })
            this.flowid=data.flow[0].cansaiId
-
            this.markObejct=this.cs.filter(pwone=>{
              return pwone._id==this.flowid
            })[0]
-
-
-
-
-
+           this.pinfen_cansaiId=data.record.filter(recordne=>{
+             return recordne.cansaiId==this.flowid
+           })
+          this.pinfen_cansaiId.forEach((ii)=>{
+            this.pw.forEach((i,id)=>{
+              if(ii.pingweiId==i._id){
+                this.pw[id].score=ii.fenshu
+              }
+            })
+          })
         } else {
           this.$message.error("保存出现问题，请重试");
         }

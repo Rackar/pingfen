@@ -5,7 +5,10 @@
       :sm="{ span: 18, offset: 3 }"
       :md="{ span: 12, offset: 6 }"
     >
-      <!-- <div id="nav">
+      
+      
+    </el-col>
+    <div id="nav">
         <router-link to="/">录入页</router-link>&nbsp;|
         <router-link to="/control">比赛控制页</router-link>&nbsp;|
         <router-link to="/socket">打分结果页</router-link>&nbsp;|
@@ -13,10 +16,9 @@
         <router-link to="/dafen">评委打分页</router-link>&nbsp;|
         <router-link to="/login">评委登录页</router-link>&nbsp;|
         <span class="linkspan" @click="logout">评委注销</span>
-      </div> -->
-      
-    </el-col>
-    <router-view />
+        <router-view />
+      </div>
+    
   </div>
 </template>
 <script>
