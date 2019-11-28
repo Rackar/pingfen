@@ -1,80 +1,102 @@
 <template>
   <div>
-    <Nav />
-    <h1>比赛环节控制器，只有在评分环节才可以打分</h1>
-    <div>
-      <h3>环节：{{ huanjieSelect }} ， 选手：{{ cansaiSelect }}</h3>
-      <el-button type="primary" style="margin-top: 12px;" @click="last"
-        >上一步</el-button
-      >
-      <el-button type="primary" style="margin-top: 12px;" @click="next"
-        >下一步</el-button
-      >
-    </div>
-    <div
-      class="topbar"
-      ref="topbarFix"
-      id="topbarFix"
-      :class="{ is_fixed: isFixed }"
+    <el-col
+      :xs="{ span: 24, offset: 0 }"
+      :sm="{ span: 18, offset: 3 }"
+      :md="{ span: 12, offset: 6 }"
     >
-      <el-button type="success" style="margin-top: 12px;" @click="setActive"
-        >开始评分</el-button
+      <Nav />
+      <h1>比赛环节控制器，只有在评分环节才可以打分</h1>
+      <div>
+        <h3>环节：{{ huanjieSelect }} ， 选手：{{ cansaiSelect }}</h3>
+        <el-button type="primary" style="margin-top: 12px;" @click="last"
+          >上一步</el-button
+        >
+        <el-button type="primary" style="margin-top: 12px;" @click="next"
+          >下一步</el-button
+        >
+      </div>
+      <div
+        class="topbar"
+        ref="topbarFix"
+        id="topbarFix"
+        :class="{ is_fixed: isFixed }"
       >
-      <el-button type="warning" style="margin-top: 12px;" @click="setNotActive"
-        >停止评分</el-button
-      >
-      <el-button type="success" style="margin-top: 12px;" @click="showResult"
-        >展示本次结果</el-button
-      >
-      <el-button type="warning" style="margin-top: 12px;" @click="clearResult"
-        >清空</el-button
-      >
-    </div>
-    <div v-if="showPingfenResult">
-      <h3>打分结果：</h3>
-      <el-table :data="table" style="width: 100%">
-        <el-table-column prop="pingwei" label="评委"></el-table-column>
-        <el-table-column prop="fenshu" label="分数"></el-table-column>
-      </el-table>
-    </div>
-    <div class="about">
-      <el-row>
-        <el-col :xs="12" :md="12">
-          <div class="aboutstep" id="aboutstep">
-            <el-steps
-              :active="active"
-              finish-status="success"
-              direction="vertical"
-            >
-              <el-step
-                :space="200"
-                v-for="hj in huanjie"
-                :title="hj.title"
-                :description="hj.description"
-                :key="hj.key"
-              ></el-step>
-            </el-steps>
-          </div>
-        </el-col>
-        <el-col :xs="12" :md="12" v-show="this.active % 2 != 0">
-          <template v-for="cs in cansai">
-            <el-card
-              @click.native="selectCS(cs)"
-              :key="cs._id"
-              shadow="hover"
-              class="cansai"
-              :class="{ cansaiClass: cs._id == selectId }"
-              :body-style="{ padding: '10px 0 0 0', margin: '0' }"
-            >
-              <img :src="$imgServer + cs.avatar" class="image" />
-              <div style="padding: 14px;">
-                <span>{{ cs.name }}</span>
-              </div>
-            </el-card>
-          </template>
-        </el-col>
-      </el-row>
-    </div>
+        <el-button
+          type="success"
+          style="margin-top: 12px;"
+          @click="setActive"
+          :disabled="active % 2 === 0"
+          >开始评分</el-button
+        >
+        <el-button
+          :disabled="active % 2 === 0"
+          type="warning"
+          style="margin-top: 12px;"
+          @click="setNotActive"
+          >停止评分</el-button
+        >
+        <el-button
+          type="success"
+          style="margin-top: 12px;"
+          @click="showResult"
+          :disabled="active % 2 === 0"
+          >展示本次结果</el-button
+        >
+        <el-button
+          type="warning"
+          style="margin-top: 12px;"
+          @click="clearResult"
+          :disabled="active % 2 === 0"
+          >清空</el-button
+        >
+      </div>
+      <div v-if="showPingfenResult">
+        <h3>打分结果：</h3>
+        <el-table :data="table" style="width: 100%">
+          <el-table-column prop="pingwei" label="评委"></el-table-column>
+          <el-table-column prop="fenshu" label="分数"></el-table-column>
+        </el-table>
+      </div>
+      <div class="about">
+        <el-row>
+          <el-col :xs="12" :md="12">
+            <div class="aboutstep" id="aboutstep">
+              <el-steps
+                :active="active"
+                finish-status="success"
+                direction="vertical"
+              >
+                <el-step
+                  :space="200"
+                  v-for="hj in huanjie"
+                  :title="hj.title"
+                  :description="hj.description"
+                  :key="hj.key"
+                ></el-step>
+              </el-steps>
+            </div>
+          </el-col>
+          <el-col :xs="12" :md="12" v-show="this.active % 2 != 0">
+            <template v-for="cs in cansai">
+              <el-card
+                @click.native="selectCS(cs)"
+                :key="cs._id"
+                shadow="hover"
+                class="cansai"
+                :class="{ cansaiClass: cs._id == selectId }"
+                :body-style="{ padding: '10px 0 0 0', margin: '0' }"
+              >
+                <img :src="$imgServer + cs.avatar" class="image" />
+                <div style="padding: 14px;">
+                  <span>{{ cs.name }}</span>
+                </div>
+              </el-card>
+            </template>
+          </el-col>
+        </el-row>
+      </div>
+    </el-col>
   </div>
 </template>
 <script>
@@ -267,11 +289,6 @@ export default {
 };
 </script>
 <style>
-.about {
-  /* height: 85vh;
-  margin-top: 5vh;
-  overflow-y: auto; */
-}
 .image {
   width: 140px;
   height: 140px;
@@ -285,8 +302,7 @@ export default {
 .cansai {
   margin: 5px;
 }
-.cansai :hover {
-}
+
 .cansaiClass {
   background-color: aqua;
 }
@@ -294,5 +310,8 @@ export default {
   position: fixed;
   top: 0;
   z-index: 10;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 </style>

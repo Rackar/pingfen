@@ -507,7 +507,7 @@ import { setTimeout } from 'timers';
       startAstop(){
         this.intervalId=null;
         if(this.intervalId >0){
-
+          console.log('object');
         }
         else{ 
           this.intervalId= window.setInterval(()=>{

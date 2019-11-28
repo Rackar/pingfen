@@ -200,9 +200,6 @@ export default {
 };
 </script>
 <style>
-.dafen {
-  /* height: 40%; */
-}
 .maintable {
   overflow-y: auto;
 

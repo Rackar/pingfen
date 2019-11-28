@@ -1,168 +1,182 @@
 <template>
   <div class="home" v-loading="loading">
-    <Nav></Nav>
-    <div class="card">
-      <h3>新增评委</h3>
-      <el-upload
-        class="avatar-uploader"
-        :action="uploadActionUrl"
-        :show-file-list="false"
-        :on-success="handleUploadSuccess"
-        :before-upload="beforeUploadUpload"
-        :on-remove="handleRemove"
-      >
-        <div slot="tip" class="el-upload__tip">点击上传评委头像</div>
-        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
+    <el-col
+      :xs="{ span: 24, offset: 0 }"
+      :sm="{ span: 18, offset: 3 }"
+      :md="{ span: 12, offset: 6 }"
+    >
+      <Nav></Nav>
+      <div class="card">
+        <h3>新增评委</h3>
+        <el-upload
+          class="avatar-uploader"
+          :action="uploadActionUrl"
+          :show-file-list="false"
+          :on-success="handleUploadSuccess"
+          :before-upload="beforeUploadUpload"
+          :on-remove="handleRemove"
+        >
+          <div slot="tip" class="el-upload__tip">点击上传评委头像</div>
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
 
-      <el-form
-        ref="formPingwei"
-        :rules="rulesPw"
-        :inline="true"
-        :model="formPingwei"
-        class="demo-form-inline"
-      >
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="formPingwei.name" placeholder="评委"></el-input>
-        </el-form-item>
-        <el-form-item label="评委类型" prop="pwtype">
-          <el-radio v-model="formPingwei.pwtype" label="评委">评委</el-radio>
-          <el-radio v-model="formPingwei.pwtype" label="嘉宾">嘉宾</el-radio>
-        </el-form-item>
-        <el-form-item label="用户名" prop="username">
-          <el-input
-            v-model="formPingwei.username"
-            placeholder="用户名"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-            v-model="formPingwei.password"
-            placeholder="密码"
-          ></el-input>
-        </el-form-item>
+        <el-form
+          ref="formPingwei"
+          :rules="rulesPw"
+          :inline="true"
+          :model="formPingwei"
+          class="demo-form-inline"
+        >
+          <el-form-item label="姓名" prop="name">
+            <el-input v-model="formPingwei.name" placeholder="评委"></el-input>
+          </el-form-item>
+          <el-form-item label="评委类型" prop="pwtype">
+            <el-radio v-model="formPingwei.pwtype" label="评委">评委</el-radio>
+            <el-radio v-model="formPingwei.pwtype" label="嘉宾">嘉宾</el-radio>
+          </el-form-item>
+          <el-form-item label="用户名" prop="username">
+            <el-input
+              v-model="formPingwei.username"
+              placeholder="用户名"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input
+              v-model="formPingwei.password"
+              placeholder="密码"
+            ></el-input>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="addPingwei">新增</el-button>
-        </el-form-item>
-      </el-form>
-      <el-divider content-position="center">评委列表</el-divider>
-      <el-table :data="table.pingwei" style="width: 100%">
-        <el-table-column type="index" label="序号"></el-table-column>
+          <el-form-item>
+            <el-button type="primary" @click="addPingwei">新增</el-button>
+          </el-form-item>
+        </el-form>
+        <el-divider content-position="center">评委列表</el-divider>
+        <el-table :data="table.pingwei" style="width: 100%">
+          <el-table-column type="index" label="序号"></el-table-column>
 
-        <el-table-column prop="name" label="姓名"></el-table-column>
-        <el-table-column prop="pwtype" label="类型"></el-table-column>
-        <el-table-column label="头像">
-          <template slot-scope="scope">
-            <img
-              style="height:80px;width:80px;"
-              :src="$imgServer + scope.row.avatar"
-              alt
-            />
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click="deleteRes(scope.row, 'pw')"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div class="card">
-      <h3>新增参赛者</h3>
-      <el-upload
-        class="avatar-uploader"
-        :action="uploadActionUrl"
-        :show-file-list="false"
-        :on-success="handleUploadCansaiSuccess"
-        :before-upload="beforeUploadUpload"
-      >
-        <div slot="tip" class="el-upload__tip">点击上传参赛者头像</div>
-        <img v-if="imageUrl2" :src="imageUrl2" class="avatar" />
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-      <el-form
-        ref="formCansai"
-        :rules="rulesCs"
-        :inline="true"
-        :model="formCansai"
-        class="demo-form-inline"
-      >
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="formCansai.name" placeholder="名称"></el-input>
-        </el-form-item>
+          <el-table-column prop="name" label="姓名"></el-table-column>
+          <el-table-column prop="pwtype" label="类型"></el-table-column>
+          <el-table-column label="头像">
+            <template slot-scope="scope">
+              <img
+                style="height:80px;width:80px;"
+                :src="$imgServer + scope.row.avatar"
+                alt
+              />
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="small"
+                @click="deleteRes(scope.row, 'pw')"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="card">
+        <h3>新增参赛者</h3>
+        <el-upload
+          class="avatar-uploader"
+          :action="uploadActionUrl"
+          :show-file-list="false"
+          :on-success="handleUploadCansaiSuccess"
+          :before-upload="beforeUploadUpload"
+        >
+          <div slot="tip" class="el-upload__tip">点击上传参赛者头像</div>
+          <img v-if="imageUrl2" :src="imageUrl2" class="avatar" />
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <el-form
+          ref="formCansai"
+          :rules="rulesCs"
+          :inline="true"
+          :model="formCansai"
+          class="demo-form-inline"
+        >
+          <el-form-item label="名称" prop="name">
+            <el-input v-model="formCansai.name" placeholder="名称"></el-input>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="addCansai">新增</el-button>
-        </el-form-item>
-      </el-form>
-      <el-divider content-position="center">参赛者列表</el-divider>
-      <el-table :data="table.cansai" style="width: 100%">
-        <el-table-column type="index" label="序号"></el-table-column>
+          <el-form-item>
+            <el-button type="primary" @click="addCansai">新增</el-button>
+          </el-form-item>
+        </el-form>
+        <el-divider content-position="center">参赛者列表</el-divider>
+        <el-table :data="table.cansai" style="width: 100%">
+          <el-table-column type="index" label="序号"></el-table-column>
 
-        <el-table-column prop="name" label="名称"></el-table-column>
-        <el-table-column label="头像">
-          <template slot-scope="scope">
-            <img
-              style="height:80px;width:80px;"
-              :src="$imgServer + scope.row.avatar"
-              alt
-            />
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click="deleteRes(scope.row, 'cs')"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div class="card">
-      <h3>新增比赛环节</h3>
+          <el-table-column prop="name" label="名称"></el-table-column>
+          <el-table-column label="头像">
+            <template slot-scope="scope">
+              <img
+                style="height:80px;width:80px;"
+                :src="$imgServer + scope.row.avatar"
+                alt
+              />
+            </template>
+          </el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="small"
+                @click="deleteRes(scope.row, 'cs')"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+      <div class="card">
+        <h3>新增比赛环节</h3>
 
-      <el-form
-        ref="formHuanjie"
-        :rules="rulesHj"
-        :inline="true"
-        :model="formHuanjie"
-        class="demo-form-inline"
-      >
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="formHuanjie.name" placeholder="名称"></el-input>
-        </el-form-item>
+        <el-form
+          ref="formHuanjie"
+          :rules="rulesHj"
+          :inline="true"
+          :model="formHuanjie"
+          class="demo-form-inline"
+        >
+          <el-form-item label="名称" prop="name">
+            <el-input v-model="formHuanjie.name" placeholder="名称"></el-input>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="addHuanjie">新增</el-button>
-        </el-form-item>
-      </el-form>
-      <el-divider content-position="center">比赛环节列表</el-divider>
-      <el-table :data="table.huanjie" style="width: 100%">
-        <el-table-column type="index" label="序号" width="80"></el-table-column>
+          <el-form-item>
+            <el-button type="primary" @click="addHuanjie">新增</el-button>
+          </el-form-item>
+        </el-form>
+        <el-divider content-position="center">比赛环节列表</el-divider>
+        <el-table :data="table.huanjie" style="width: 100%">
+          <el-table-column
+            type="index"
+            label="序号"
+            width="80"
+          ></el-table-column>
 
-        <el-table-column prop="name" label="名称" width="180"></el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click="deleteRes(scope.row, 'hj')"
-              >删除</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+          <el-table-column
+            prop="name"
+            label="名称"
+            width="180"
+          ></el-table-column>
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="small"
+                @click="deleteRes(scope.row, 'hj')"
+                >删除</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </el-col>
   </div>
 </template>
 
@@ -393,8 +407,6 @@ export default {
 </script>
 
 <style>
-.home {
-}
 .card {
   border: #409eff 3px solid;
   margin: 40px 0;
