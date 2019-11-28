@@ -11,6 +11,7 @@
         :before-upload="beforeUploadUpload"
         :on-remove="handleRemove"
       >
+        <div slot="tip" class="el-upload__tip">点击上传评委头像</div>
         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -82,6 +83,7 @@
         :on-success="handleUploadCansaiSuccess"
         :before-upload="beforeUploadUpload"
       >
+        <div slot="tip" class="el-upload__tip">点击上传参赛者头像</div>
         <img v-if="imageUrl2" :src="imageUrl2" class="avatar" />
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
@@ -394,9 +396,9 @@ export default {
 .home {
 }
 .card {
-  border: #409eff 1px solid;
+  border: #409eff 3px solid;
   margin: 40px 0;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 20px;
 }
 .home h3 {
@@ -419,6 +421,9 @@ export default {
   height: 178px;
   line-height: 178px !important;
   text-align: center;
+}
+.el-upload__tip {
+  margin-bottom: 5px;
 }
 .avatar {
   width: 178px;
