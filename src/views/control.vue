@@ -1,55 +1,18 @@
 <template>
   <div>
-    <el-col
-      :xs="{ span: 24, offset: 0 }"
-      :sm="{ span: 18, offset: 3 }"
-      :md="{ span: 12, offset: 6 }"
-    >
+    <el-col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 3 }" :md="{ span: 12, offset: 6 }">
       <Nav />
       <h1>比赛环节控制器，只有在评分环节才可以打分</h1>
       <div>
         <h3>环节：{{ huanjieSelect }} ， 选手：{{ cansaiSelect }}</h3>
-        <el-button type="primary" style="margin-top: 12px;" @click="last"
-          >上一步</el-button
-        >
-        <el-button type="primary" style="margin-top: 12px;" @click="next"
-          >下一步</el-button
-        >
+        <el-button type="primary" style="margin-top: 12px;" @click="last">上一步</el-button>
+        <el-button type="primary" style="margin-top: 12px;" @click="next">下一步</el-button>
       </div>
-      <div
-        class="topbar"
-        ref="topbarFix"
-        id="topbarFix"
-        :class="{ is_fixed: isFixed }"
-      >
-        <el-button
-          type="success"
-          style="margin-top: 12px;"
-          @click="setActive"
-          :disabled="active % 2 === 0"
-          >开始评分</el-button
-        >
-        <el-button
-          :disabled="active % 2 === 0"
-          type="warning"
-          style="margin-top: 12px;"
-          @click="setNotActive"
-          >停止评分</el-button
-        >
-        <el-button
-          type="success"
-          style="margin-top: 12px;"
-          @click="showResult"
-          :disabled="active % 2 === 0"
-          >展示本次结果</el-button
-        >
-        <el-button
-          type="warning"
-          style="margin-top: 12px;"
-          @click="clearResult"
-          :disabled="active % 2 === 0"
-          >清空</el-button
-        >
+      <div class="topbar" ref="topbarFix" id="topbarFix" :class="{ is_fixed: isFixed }">
+        <el-button type="success" style="margin-top: 12px;" @click="setActive" :disabled="active % 2 === 0">开始评分</el-button>
+        <el-button :disabled="active % 2 === 0" type="warning" style="margin-top: 12px;" @click="setNotActive">停止评分</el-button>
+        <el-button type="success" style="margin-top: 12px;" @click="showResult" :disabled="active % 2 === 0">展示本次结果</el-button>
+        <el-button type="warning" style="margin-top: 12px;" @click="clearResult" :disabled="active % 2 === 0">清空</el-button>
       </div>
       <div v-if="showPingfenResult">
         <h3>打分结果：</h3>
@@ -62,31 +25,14 @@
         <el-row>
           <el-col :xs="12" :md="12">
             <div class="aboutstep" id="aboutstep">
-              <el-steps
-                :active="active"
-                finish-status="success"
-                direction="vertical"
-              >
-                <el-step
-                  :space="200"
-                  v-for="hj in huanjie"
-                  :title="hj.title"
-                  :description="hj.description"
-                  :key="hj.key"
-                ></el-step>
+              <el-steps :active="active" finish-status="success" direction="vertical">
+                <el-step :space="200" v-for="hj in huanjie" :title="hj.title" :description="hj.description" :key="hj.key"></el-step>
               </el-steps>
             </div>
           </el-col>
           <el-col :xs="12" :md="12" v-show="this.active % 2 != 0">
             <template v-for="cs in cansai">
-              <el-card
-                @click.native="selectCS(cs)"
-                :key="cs._id"
-                shadow="hover"
-                class="cansai"
-                :class="{ cansaiClass: cs._id == selectId }"
-                :body-style="{ padding: '10px 0 0 0', margin: '0' }"
-              >
+              <el-card @click.native="selectCS(cs)" :key="cs._id" shadow="hover" class="cansai" :class="{ cansaiClass: cs._id == selectId }" :body-style="{ padding: '10px 0 0 0', margin: '0' }">
                 <img :src="$imgServer + cs.avatar" class="image" />
                 <div style="padding: 14px;">
                   <span>{{ cs.name }}</span>
@@ -109,9 +55,7 @@ export default {
   data() {
     return {
       active: 0,
-      huanjie: [
-        { title: "环节1进行", description: "完成时间：未完成", active: false }
-      ],
+      huanjie: [{ title: "环节1进行", description: "完成时间：未完成", active: false }],
       table: [],
       cansai: [],
       cansaiClass: "",
@@ -143,10 +87,7 @@ export default {
   },
   methods: {
     initHeight() {
-      let scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop ||
-        document.body.scrollTop;
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
       this.isFixed = scrollTop > this.offsetTop ? true : false;
     },
     selectCS(cs) {
@@ -188,10 +129,7 @@ export default {
         let data = res.data.data;
         if (res.status == 200 && res.data.status == 1) {
           let arr = data.record.filter(record => {
-            return (
-              record.cansaiId === this.lastCsId &&
-              record.huanjieId === this.huanjieSelectid
-            );
+            return record.cansaiId === this.lastCsId && record.huanjieId === this.huanjieSelectid;
           });
           this.table = [];
           arr.forEach(record => {
@@ -247,8 +185,7 @@ export default {
           this.huanjieSelectid = this.huanjie[this.active]._id;
           // this.changeHuanjie(this.huanjie[this.active]._id, false);
         }
-        this.huanjie[this.active].description =
-          "完成时间：" + new Date().toLocaleString();
+        this.huanjie[this.active].description = "完成时间：" + new Date().toLocaleString();
         this.active++;
       } else {
         this.active = 0;

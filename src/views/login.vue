@@ -2,19 +2,8 @@
   <div>
     <h2 style="text-align:center">评委登录</h2>
     <el-row :gutter="10">
-      <el-col
-        :xs="{ span: 18, offset: 3 }"
-        :sm="{ span: 12, offset: 6 }"
-        :md="{ span: 10, offset: 7 }"
-      >
-        <el-form
-          ref="form"
-          :model="form"
-          :rules="rules"
-          label-width="80px"
-          status-icon
-          v-loading="loading"
-        >
+      <el-col :xs="{ span: 18, offset: 3 }" :sm="{ span: 12, offset: 6 }" :md="{ span: 10, offset: 7 }">
+        <el-form ref="form" :model="form" :rules="rules" label-width="80px" status-icon v-loading="loading">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="form.username"></el-input>
           </el-form-item>
@@ -44,9 +33,7 @@ export default {
         password: ""
       },
       rules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
-        ],
+        username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
