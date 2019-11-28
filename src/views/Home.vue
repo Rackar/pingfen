@@ -24,6 +24,10 @@
         <el-form-item label="姓名" prop="name">
           <el-input v-model="formPingwei.name" placeholder="评委"></el-input>
         </el-form-item>
+        <el-form-item label="评委类型" prop="pwtype">
+          <el-radio v-model="formPingwei.pwtype" label="评委">评委</el-radio>
+          <el-radio v-model="formPingwei.pwtype" label="嘉宾">嘉宾</el-radio>
+        </el-form-item>
         <el-form-item label="用户名" prop="username">
           <el-input
             v-model="formPingwei.username"
@@ -46,6 +50,7 @@
         <el-table-column type="index" label="序号"></el-table-column>
 
         <el-table-column prop="name" label="姓名"></el-table-column>
+        <el-table-column prop="pwtype" label="类型"></el-table-column>
         <el-table-column label="头像">
           <template slot-scope="scope">
             <img
@@ -187,7 +192,8 @@ export default {
         name: "",
         username: "",
         password: "",
-        avatar: ""
+        avatar: "",
+        pwtype: "评委"
       },
       formCansai: {
         name: "",
@@ -275,7 +281,8 @@ export default {
             name: this.formPingwei.name,
             username: this.formPingwei.username,
             password: this.formPingwei.password,
-            avatar: this.formPingwei.avatar
+            avatar: this.formPingwei.avatar,
+            pwtype: this.formPingwei.pwtype
           };
 
           this.$axios.post("/noauth/pingfen/addpingwei", obj).then(
