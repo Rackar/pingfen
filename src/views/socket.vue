@@ -224,6 +224,8 @@ export default {
       member: {},
       cs:[],//参赛选手
       pw:[],//评委
+      jb:[],//嘉宾
+      
       markObejct:{
           img:"http://res.wmnetwork.cc/res/manage/img/mark_obj.png",
           name:'内蒙古测绘地理信息局代表队',
@@ -383,6 +385,7 @@ export default {
             this.jb =data.pw.filter(pwone=>{
              return pwone.type==1
            })
+           
         } else {
           this.$message.error("保存出现问题，请重试");
         }
