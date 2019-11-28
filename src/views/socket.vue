@@ -246,17 +246,20 @@
         <ul class="clearfix s_bottom_box ">
           <span class="bottom_radius bottom_radius_left"></span>
           <li class="li-home" @click="bottomliclick(0)">
-            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a>
+            <!-- <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a> -->
+            <i class="el-icon-s-home icon_tihuan_bg"></i>
             <span class="li_span">主画面</span>
             <!-- <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="主画面"></a> -->
           </li>
           <li class="li-home" @click="bottomliclick(1)">
-            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="答题阶段"></a>
+            <i class="el-icon-s-marketing icon_tihuan_bg"></i>
+            <!-- <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="答题阶段"></a> -->
             <span class="li_span">答题结果</span>
             <!-- <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="答题阶段"></a> -->
           </li>
           <li class="li-home" @click="bottomliclick(2)">
-            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="现场参赛"></a>
+            <i class="el-icon-s-claim  icon_tihuan_bg"></i>
+            <!-- <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="现场参赛"></a> -->
             <span class="li_span">现场参赛</span>
             <!-- <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="现场参赛"></a> -->
           </li>
@@ -278,36 +281,38 @@
           <!---->
           <!---->
           <li class="right li-setting" @click="startAstop()">
-            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a> -->
+            <i class="el-icon-caret-right icon_tihuan_bg"></i>
             <span class="li_span">开始现场比赛</span>
             <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">开始现场比赛</a> -->
           </li>
           <li class="right li-setting">
-            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a> -->
+            <i class="el-icon-s-tools icon_tihuan_bg"></i>
             <span class="li_span">设置</span>
             <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">设置</a> -->
           </li>
-          <li class="right li-fullscreen">
-            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a>
+          <li class="right li-fullscreen" @click="toggleFullScreen()">
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a> -->
+            <i class="el-icon-rank icon_tihuan_bg"></i>
             <span class="li_span">
               全屏，快捷键'F11'
               <i></i>
             </span>
             <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">全屏</a> -->
           </li>
-          <li class="right li-qt" @click="showqt()">
+          <!-- <li class="right li-qt" @click="showqt()">
             <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a>
             <span class="li_span">
               二维码
               <i></i>
             </span>
-            <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">二维码</a> -->
-          </li>
+          </li> -->
           <li class="right li-qt" @click="showqt()">
             <!-- <a tabindex="-1" href="javascript:void(0);" class="s_b_icon test"></a> -->
+            <i class="el-icon-edit icon_tihuan_bg"></i>
             <span class="li_span">
-              测试图标
-              <i></i>
+              二维码
             </span>
             <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">二维码</a> -->
           </li>
@@ -383,10 +388,49 @@ export default {
       results: [],
 
       showQT: false,
-      actid: ""
+      actid: "",
+      isFullscreen: false
     };
   },
   methods: {
+    toggleFullScreen() {
+      let el = document.getElementById("app");
+
+      // el.requestFullscreen();
+      if (this.isFullscreen) {
+        document.exitFullscreen();
+      } else {
+        el.requestFullscreen();
+      }
+      this.isFullscreen = !this.isFullscreen;
+      // this.FullScreen(el);
+    },
+    FullScreen(el) {
+      if (this.isFullscreen) {
+        //退出全屏
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (!document.msRequestFullscreen) {
+          document.msExitFullscreen();
+        }
+      } else {
+        //进入全屏
+        if (el.requestFullscreen) {
+          el.requestFullscreen();
+        } else if (el.mozRequestFullScreen) {
+          el.mozRequestFullScreen();
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        } else if (el.msRequestFullscreen) {
+          this.isFullscreen = true;
+          el.msRequestFullscreen();
+        }
+      }
+    },
     showqt() {
       this.showQT = !this.showQT;
     },

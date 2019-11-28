@@ -224,19 +224,11 @@ mark .mark-title .pr {
 #pfresult > .mark .mark-container .mark-list .mark-item-container.one.act {
   border: 2px solid whitesmoke;
 }
-#pfresult
-  > .mark
-  .mark-container
-  .mark-list
-  .mark-item-container:nth-child(-n + 2) {
+#pfresult > .mark .mark-container .mark-list .mark-item-container:nth-child(-n + 2) {
   margin-top: 0;
 }
 
-#pfresult
-  > .mark
-  .mark-container
-  .mark-list
-  .mark-item-container:nth-child(odd) {
+#pfresult > .mark .mark-container .mark-list .mark-item-container:nth-child(odd) {
   margin-left: 30px;
 }
 
@@ -496,6 +488,10 @@ mark .mark-title .pr {
   background: url("../images/fullscreen.png") no-repeat 50%;
   background-size: 120%;
 }
+
+div..el-scrollbar__wrap {
+  overflow-y: hidden;
+}
 .s_bottom_link ul li a.s_b_icon.test {
   /* background: url("../images/fullscreen.png") no-repeat 50%; */
   /* background-size: 120%; */
@@ -520,6 +516,18 @@ mark .mark-title .pr {
 }
 .s_bottom .s_bottom_box .right {
   float: right;
+}
+.icon_tihuan_bg {
+  line-height: 40px;
+  font-size: 30px;
+  color: white;
+  margin: 2px 0 0 0;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.icon_tihuan_bg:hover {
+  background-color: #00a1f6;
 }
 .s_bottom:hover .s_bottom_link {
   margin-top: -65px;
@@ -879,13 +887,7 @@ mark .mark-title .pr {
 }
 
 .mark .jury-remark-container .right-right .top .name-container .jury {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#d59842),
-    to(#fff584)
-  );
+  background: -webkit-gradient(linear, left top, right top, from(#d59842), to(#fff584));
   background: linear-gradient(90deg, #d59842, #fff584);
   width: 60px;
   height: 30px;
