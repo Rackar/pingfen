@@ -8,16 +8,18 @@
       <div class="mark">
         <div class="mark-container" style="zoom: 100%;" v-show="this.showid == 0">
           <div style="position: relative;">
-            <div style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
+            <div
+              style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
             </div>
-            <div  class="mark-title" style="margin-top: 25%;">
+            <div class="mark-title" style="margin-top: 25%;">
               <div class="left-title" style="margin: 0 auto;    margin-top: -10%;">{{title}}</div>
               <div class="pr"></div>
             </div>
-             <div  class="mark-title" style="margin-top: 5%;font-size: 30px;">
+            <div class="mark-title" style="margin-top: 5%;font-size: 30px;">
               <div class="left-title" style="margin: 0 auto;">主办单位：{{zhuban}}</div>
               <div class="pr"></div>
             </div>
+            <div id="qrCode" ref="qrCodeDiv"></div>
           </div>
         </div>
         <div class="mark-container" style="zoom: 100%;" v-show="showid == 1">
@@ -25,32 +27,32 @@
             <div
               style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
             </div>
-            <div  class="mark-title">
+            <div class="mark-title">
               <div class="left-title" style="width: 100%;">{{title}}-答题结果</div>
               <div class="pr"></div>
             </div>
-            <div  id="markScreen" class="mark-list one">
-              <div  id="markScreenBox" class="mark-list-box">
+            <div id="markScreen" class="mark-list one">
+              <div id="markScreenBox" class="mark-list-box">
                 <el-scrollbar style="height: 100%;">
-                <div  class="mark-item-container one" v-for="(item,index) in cs" :key="index" @click="pingfen(item)">
-                  <div  class="list-item">
-                    <div  class="left">
-                      <img  :src="getavatar(item)" class="avatar">
-                      <div  class="info">
-                        <div  class="title outterbox 15522">
-                          <div  class="评分对象1" style="display: inline-block;">{{item.name}}</div>
+                  <div class="mark-item-container one" v-for="(item,index) in cs" :key="index" @click="pingfen(item)">
+                    <div class="list-item">
+                      <div class="left">
+                        <img :src="getavatar(item)" class="avatar">
+                        <div class="info">
+                          <div class="title outterbox 15522">
+                            <div class="评分对象1" style="display: inline-block;">{{item.name}}</div>
+                          </div>
+                          <div class="description">{{item.description}}</div>
                         </div>
-                        <div  class="description">{{item.description}}</div>
                       </div>
-                    </div>
-                    <div  class="right">
-                      <div  class="marks-container">
-                        <div  class="score-mark">{{get_dati_score(item)}}</div>
-                        <div  class="type">分</div>
+                      <div class="right">
+                        <div class="marks-container">
+                          <div class="score-mark">{{get_dati_score(item)}}</div>
+                          <div class="type">分</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </el-scrollbar>
               </div>
             </div>
@@ -61,32 +63,40 @@
             <div
               style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
             </div>
-            <div  class="mark-title">
-              <div class="left-title" style="width: 100%;">{{title}}-答题结果</div>
+            <div class="mark-title">
+              <div class="left-title" style="width: 100%;">{{title}}-现场比赛</div>
               <div class="pr"></div>
             </div>
-            <div  id="markScreen" class="mark-list one">
-              <div  id="markScreenBox" class="mark-list-box">
+            <div id="markScreen" class="mark-list one">
+              <div id="markScreenBox" class="mark-list-box">
                 <el-scrollbar style="height: 100%;">
-                <div  class="mark-item-container one" v-for="(item,index) in cs" :key="index" @click="pingfen(item)">
-                  <div  class="list-item">
-                    <div  class="left">
-                      <img  :src="getavatar(item)" class="avatar">
-                      <div  class="info">
-                        <div  class="title outterbox 15522">
-                          <div  class="评分对象1" style="display: inline-block;">{{item.name}}</div>
+                  <div :class="[item._id ==actid?'act':'','mark-item-container','one']" v-for="(item,index) in cs" :key="index" @click="pingfen(item,index)">
+                    <div class="list-item">
+                      <div class="left">
+                        <img :src="getavatar(item)" class="avatar">
+                        <div class="info">
+                          <div class="title outterbox 15522">
+                            <div class="评分对象1" style="display: inline-block;">{{item.name}}</div>
+                          </div>
+                          <div class="description">{{item.description}}</div>
                         </div>
-                        <div  class="description">{{item.description}}</div>
                       </div>
-                    </div>
-                    <div  class="right">
-                      <div  class="marks-container">
-                        <div  class="score-mark">{{item.score==-1?"...":item.score}}</div>
-                        <div  class="type">{{item.score==-1?"待评分":"均分"}}</div>
+                      <div>
+                         <div class="right" style="float: left;" @click="goplay(item)">
+                        <div class="marks-container">
+                          <div class="type">{{item.showed==2?"已表演":(item.showed==1)?"正在表演":"未表演"}}</div>
+                        </div>
                       </div>
+                      <div class="right" style="    float: right;">
+                        <div class="marks-container">
+                          <div class="score-mark">{{item.score==-1?"...":item.score}}</div>
+                          <div class="type">{{item.score==-1?"待评分":"均分"}}</div>
+                        </div>
+                      </div>
+                      </div>
+                     
                     </div>
                   </div>
-                </div>
                 </el-scrollbar>
               </div>
             </div>
@@ -114,7 +124,8 @@
               <div class="pr">
                 <div class="info">
                   <div class="marked">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAiCAYAAAA3WXuFAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAAghJREFUWIXN18+LTXEYx/HXvTPjYjExTIwVMguzk5rRTPEHGCmzkdTsRHaYYiGzkJ21ZKusTjYsiPJrI2UxE2WS2ChZSMQYGRbPvZoR+n7Pdc391HdxO5/79D7fp/P8qExPTyupXdiHYfRiHm9xFwUepgQpimLR784SIBtwEaO/ebYJg5jAZRzBx5zg1UyYATz+A8yvOlj39rUKqBv3sS7jP/0ihZVWAF1AT4a/oX6cSzWnAvXjQAmYhiawJsWYCrS/PAvowN4UYyrQ9vIsPzWYYkoFWtsESEO9KaZUoLkmQLJipAK9agKkoRcpplSgG02AZMVIBbqKd+VZPMO9FGMq0BccLY3D4VRjTqW+gkv5LM7iTqo5t7kewvkM/+n6SVYuEJzAHjz4i+cWdorbyVKZeQiu1c8ARsQEMI/XAvR5ybilgRp6Wj//TGVS1lK1HVAzKVslpsgaluErZvFBE0U0BagH27ADm7EV6+tAK9Elbvq7aKCf8B5vMCN62CM8wcuyQH3i0x4Va07KtFcRt1XDamzE0ILn38RqdFO0oqkUoC04jnGsSIDIUYd4uWFM4raY0xctZpUFi+IkToo3/J+6jmNFUcwQue8WRe7MEsDAbkyNjY2NEDd0Ssaa0kLNYqgqvpp20HKMV0X9aBd1VUVTbBfNtV3rqIrctYtqnaLUE5V0KdWBzz8AEbJb8TD58fwAAAAASUVORK5CYII="><span
+                    <img
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAiCAYAAAA3WXuFAAABS2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNrZXQgZW5kPSJyIj8+LUNEtwAAAghJREFUWIXN18+LTXEYx/HXvTPjYjExTIwVMguzk5rRTPEHGCmzkdTsRHaYYiGzkJ21ZKusTjYsiPJrI2UxE2WS2ChZSMQYGRbPvZoR+n7Pdc391HdxO5/79D7fp/P8qExPTyupXdiHYfRiHm9xFwUepgQpimLR784SIBtwEaO/ebYJg5jAZRzBx5zg1UyYATz+A8yvOlj39rUKqBv3sS7jP/0ihZVWAF1AT4a/oX6cSzWnAvXjQAmYhiawJsWYCrS/PAvowN4UYyrQ9vIsPzWYYkoFWtsESEO9KaZUoLkmQLJipAK9agKkoRcpplSgG02AZMVIBbqKd+VZPMO9FGMq0BccLY3D4VRjTqW+gkv5LM7iTqo5t7kewvkM/+n6SVYuEJzAHjz4i+cWdorbyVKZeQiu1c8ARsQEMI/XAvR5ybilgRp6Wj//TGVS1lK1HVAzKVslpsgaluErZvFBE0U0BagH27ADm7EV6+tAK9Elbvq7aKCf8B5vMCN62CM8wcuyQH3i0x4Va07KtFcRt1XDamzE0ILn38RqdFO0oqkUoC04jnGsSIDIUYd4uWFM4raY0xctZpUFi+IkToo3/J+6jmNFUcwQue8WRe7MEsDAbkyNjY2NEDd0Ssaa0kLNYqgqvpp20HKMV0X9aBd1VUVTbBfNtV3rqIrctYtqnaLUE5V0KdWBzz8AEbJb8TD58fwAAAAASUVORK5CYII="><span
                       style="width: 142px; display: inline-block;">已评{{gethasPingd()}}位</span></div>
                   <div class="score-container" style="margin-top: 5px; padding-top: 10px;">
                     <div class="score" style="display: inline-block; font-size: 40px;">{{gethasPingd_avg()}}</div>
@@ -132,7 +143,8 @@
             <!---->
             <div style="position: relative;">
               <div class="left" tabindex="3" style="overflow: hidden; outline: none;">
-                <div class="jury-list" style="transition: transform 0ms ease-out 0s; transform: translate3d(0px, 0px, 0px);height: 100%;">
+                <div class="jury-list"
+                  style="transition: transform 0ms ease-out 0s; transform: translate3d(0px, 0px, 0px);height: 100%;">
                   <el-scrollbar style="height: 100%;">
                     <div class="jury-item-container" v-for="(item,index) in pw" :key="index">
                       <div class="jury-item toMark">
@@ -168,7 +180,7 @@
                   </div>
                 </div>
               </el-scrollbar>
-              
+
             </div>
             <div class="remark-animation">
               <!---->
@@ -179,32 +191,58 @@
             </div>
           </div>
         </div>
+        <div class="mark-container" style="zoom: 100%;" v-show="showid == 4">
+          <div style="position: relative;">
+            <div
+              style=" position: absolute; z-index: -1; top: 0px; left: 0px; bottom: 0px; right: 0px; filter: blur(30px); background-size: 100% 100%; background-repeat: no-repeat;">
+            </div>
+            <div class="mark-title">
+              <div class="left-title" style="width: 100%;">{{title}}-现场比赛</div>
+              <div class="pr"></div>
+            </div>
+            <div class="mark-title" style="margin-top: 5%;font-size: 30px;">
+              <div class="left-title" style="margin: 0 auto;">当前：{{zhuban}}</div>
+              <div class="pr"></div>
+            </div>
+            <div class="mark-title" style="margin-top: 5%;font-size: 30px;">
+              <div class="left-title" style="margin: 0 auto;">时间剩余：{{timeleft()}}</div>
+              <div class="pr"></div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div id="url_code" class="pop-ecode title hover zoom1" style="position: fixed; left: 1390px; top: 20px; transition: all 0.5s ease 0s;" v-show="showQT==true">
+        <span class="ecode-image" ref="ecodeimage">
+          <!-- <img class="url_img" src="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQEM8DwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyRmM4aHN2M3dkcDAxY1RjMXh1MUIAAgQ3P9pdAwQAjScA"> -->
+        </span>
+        <!---->
       </div>
     </div>
-    <div class="s_bottom" >
-      <div class="s_bottom_link" >  
+    <div class="s_bottom">
+      <div class="s_bottom_link">
         <ul class="clearfix s_bottom_box ">
           <span class="bottom_radius bottom_radius_left"></span>
           <li class="li-home" @click="bottomliclick(0)">
-            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a> /#/socket
+            <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="主画面"></a>
             <span class="li_span">主画面</span>
-            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="主画面"></a>
+            <!-- <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="主画面"></a> -->
           </li>
           <li class="li-home" @click="bottomliclick(1)">
             <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="答题阶段"></a>
             <span class="li_span">答题结果</span>
-            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="答题阶段"></a>
+            <!-- <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="答题阶段"></a> -->
           </li>
           <li class="li-home" @click="bottomliclick(2)">
             <a href="javascript:void(0);" class="s_b_icon home" tabindex="-1" id="bottom_home" title="现场参赛"></a>
             <span class="li_span">现场参赛</span>
-            <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="现场参赛"></a>
+            <!-- <a href="javascript:void(0);" class="menu-name" tabindex="-1" title="现场参赛"></a> -->
           </li>
 
           <li class="li-mark" @click="bottomliclick(3)">
             <a tabindex="-1" title="评委评分" href="javascript:void(0);" id="bottom_mark" class="s_b_icon mark"></a>
-            <span class="li_span">评委评分 <i></i></span> 
-            <a tabindex="-1" href="javascript:void(0);" class="menu-name"></a>
+            <span class="li_span">评委评分 <i></i></span>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name"></a> -->
           </li>
 
 
@@ -215,17 +253,27 @@
           </li> -->
           <!---->
           <!---->
+          <li class="right li-setting" @click="startAstop()">
+            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a>
+            <span class="li_span">开始现场比赛</span>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">开始现场比赛</a> -->
+          </li>
           <li class="right li-setting">
-            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a> 
+            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon setting"></a>
             <span class="li_span">设置</span>
-            <a tabindex="-1" href="javascript:void(0);" class="menu-name">设置</a>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">设置</a> -->
           </li>
           <li class="right li-fullscreen">
-            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a> 
-            <span class="li_span">全屏，快捷键'F11'<i></i></span> 
-            <a tabindex="-1" href="javascript:void(0);" class="menu-name">全屏</a>
+            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a>
+            <span class="li_span">全屏，快捷键'F11'<i></i></span>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">全屏</a> -->
           </li>
-          
+          <li class="right li-qt" @click="showqt()">
+            <a tabindex="-1" href="javascript:void(0);" class="s_b_icon fullscreen"></a>
+            <span class="li_span">二维码<i></i></span>
+            <!-- <a tabindex="-1" href="javascript:void(0);" class="menu-name">二维码</a> -->
+          </li>
+
         </ul>
       </div>
       <div id="keycode_hint" class="keycode_hint"><img src="//img2.wmnetwork.cc/static/screen/images/keycode_hint.jpg"
@@ -237,182 +285,250 @@
 
 </template>
 <script>
-import getArrObjNameFromId from "../utils/tools";
-export default {
-  sockets: {
-    connect: function() {
-      console.log("socket connected");
+  import getArrObjNameFromId from "../utils/tools";
+import { setTimeout } from 'timers';
+  export default {
+    sockets: {
+      connect: function () {
+        console.log("socket connected");
+      },
+      getMsg: function (value) {
+        console.log(value);
+      },
+      pingfenResult(value) {
+
+        this.updatescore(this.pw, value)
+        this.updatescore(this.jb, value)
+      },
+      huanjieChange(value) {
+        this.huanjie.id = value.huanjieId;
+        this.cansai.id = value.cansaiId;
+        this.huanjie.name = getArrObjNameFromId(this.member.hj, value.huanjieId);
+        this.cansai.name = getArrObjNameFromId(this.member.cs, value.cansaiId);
+        this.results = [];
+      }
     },
-    getMsg: function(value) {
-      console.log(value);
+    created() {
+      this.getMemberData();
+      setTimeout(()=>{
+          new this.$qrCode(this.$refs.ecodeimage, {
+          text: 'http://192.168.1.118:9333/#/login',
+          width: 430,
+          height: 430,
+          colorDark: "#333333", //二维码颜色
+          colorLight: "#ffffff", //二维码背景色
+          correctLevel: this.$qrCode.CorrectLevel.L //容错率，L/M/H
+        })
+      },500)
     },
-    pingfenResult(value) {
+    data() {
+      return {
+        title: '2019年第一次啊党委比赛ADAS',
+        zhuban: '内蒙古自治区测绘地理信息局',
+        msg: {},
+        huanjie: {
+          name: "",
+          id: ""
+        },
+        cansai: {
+          name: "",
+          id: ""
+        },
+        member: {},
+        cs: [], //参赛选手
+        pw: [], //评委
+        jb: [], //嘉宾
+        adminid: '',
+        ditifen: [],
+        markObejct: {},
 
-      this.updatescore(this.pw,value)
-      this.updatescore(this.jb,value)
+        flowid: '',
+        showid: 0,
+        csshow: {},
+        results: [],
+
+
+
+
+        showQT:false,
+        actid:'',
+
+
+      };
     },
-    huanjieChange(value) {
-      this.huanjie.id = value.huanjieId;
-      this.cansai.id = value.cansaiId;
-      this.huanjie.name = getArrObjNameFromId(this.member.hj, value.huanjieId);
-      this.cansai.name = getArrObjNameFromId(this.member.cs, value.cansaiId);
-      this.results = [];
-    }
-  },
-  created() {
-    this.getMemberData();
-  },
-  data() {
-    return {
-      title:'2019年第一次啊党委比赛ADAS',
-      zhuban:'内蒙古自治区测绘地理信息局',
-      msg: {},
-      huanjie: { name: "", id: "" },
-      cansai: { name: "", id: "" },
-      member: {},
-      cs:[],//参赛选手
-      pw:[],//评委
-      jb:[],//嘉宾
-      adminid:'',
-      ditifen:[],
-      markObejct:{},
+    methods: {
+      showqt() {
+        this.showQT=!this.showQT;
 
-      flowid:'',
-      showid:0,
-      csshow:{},
-      results: [],
-
-
-    };
-  },
-  methods: {
-    updatescore(item,value){
-      let findi=-1;
-      let exist = item.some((res,index) => {
-        if(res._id == value.pingweiId){
-          findi=index
-          return true
+      },
+      updatescore(item, value) {
+        let findi = -1;
+        let exist = item.some((res, index) => {
+          if (res._id == value.pingweiId) {
+            findi = index
+            return true
+          } else {
+            return false
+          }
+        });
+        if (exist) {
+          item[findi].score = value.fenshu
+          let _object = item[findi]
+          _object.score = value.fenshu
+          item.splice(findi, 1, _object)
         }
-        else{
-          return false
-        }
-      });
-      if (exist) {
-        item[findi].score=  value.fenshu
-        let _object=item[findi]
-        _object.score=  value.fenshu
-        item.splice(findi,1,_object)
-      }
-    },
-    getavatar(item){
-      if(item.avatar){
-        return `${this.$imgServer}${item.avatar}`
-      }
-      else{
-        return ''
-      }
-      
-    },
-    gethasPingd(){
-      return this.pw.filter(pwone=>{
-        return pwone.score >0
-      }).length
-    },
-    gethasPingd_avg(){
-      let scores=[]
-      let Pingds= this.pw.filter(pwone=>{
-        return pwone.score >0
-      })
-      for (let index = 0; index < Pingds.length; index++) {
-        scores.push(Pingds[index].score)
-      }
-      scores.sort(function(a,b){
-        return a - b;
-      })
-      if(scores.length>3){
-        scores.splice(scores.length-1,1).splice(0,1)
-      }
-      
-      let all=0;
-      for (let index = 0; index < Pingds.length; index++) {
-        all+=scores[index]
-      }
-      return all/ scores.length
-    },
-    getscore(item){
-      return item.score >0?item.score:"未评分"
-    },
-    getpinfen_by_pw(){
-      //item
-      // if(item.avatar){
-      //   return `${this.$imgServer}${item.avatar}`
-      // }
-      // else{
-      //   return ''
-      // }
-      
-    },
-    bottomliclick(index){
-      this.showid=index
-    },
-    showThePage(){
-      // if(showid==0){
-
-      // }
-    },
-    get_dati_score(item){
-      let fenshu=this.ditifen.filter(ditione=>{
-        return ditione.cansaiId==item._id
-      })
-      if(fenshu.length>0){
-        return fenshu[0].fenshu
-      }
-      else{
-        return 0
-      }
-    },
-    getMemberData() {
-      this.$axios.get("/noauth/pingfen/all").then(res => {
-        console.log(res.data.data);
-        let data = res.data.data;
-        if (res.status == 200 && res.data.status == 1) {
-           this.cs = data.cs;
-           this.pw =data.pw.filter(pwone=>{
-             return pwone.pwtype=="评委" && pwone.username !="0"
-           })
-            this.jb =data.pw.filter(pwone=>{
-             return pwone.pwtype=="嘉宾"
-           })
-           this.adminid =data.pw.filter(pwone=>{
-             return pwone.pwtype=="评委" && pwone.username =="0"
-           })[0]._id
-           this.ditifen =data.record.filter(recordne=>{
-             return recordne.pingweiId==this.adminid 
-           })
-           this.flowid=data.flow[0].cansaiId
-           this.markObejct=this.cs.filter(pwone=>{
-             return pwone._id==this.flowid
-           })[0]
-           this.pinfen_cansaiId=data.record.filter(recordne=>{
-             return recordne.cansaiId==this.flowid
-           })
-          this.pinfen_cansaiId.forEach((ii)=>{
-            this.pw.forEach((i,id)=>{
-              if(ii.pingweiId==i._id){
-                this.pw[id].score=ii.fenshu
-              }
-            })
-          })
+      },
+      getavatar(item) {
+        if (item.avatar) {
+          return `${this.$imgServer}${item.avatar}`
         } else {
-          this.$message.error("保存出现问题，请重试");
+          return ''
         }
-      });
-    },
-    sendData() {
-      // this.$socket.emit("pingfen", { fenshu: 5 });
+
+      },
+      gethasPingd() {
+        return this.pw.filter(pwone => {
+          return pwone.score > 0
+        }).length
+      },
+      gethasPingd_avg() {
+        let scores = []
+        let Pingds = this.pw.filter(pwone => {
+          return pwone.score > 0
+        })
+        for (let index = 0; index < Pingds.length; index++) {
+          scores.push(Pingds[index].score)
+        }
+        scores.sort(function (a, b) {
+          return a - b;
+        })
+        if (scores.length > 3) {
+          scores.splice(scores.length - 1, 1).splice(0, 1)
+        }
+
+        let all = 0;
+        for (let index = 0; index < Pingds.length; index++) {
+          all += scores[index]
+        }
+        return all / scores.length
+      },
+      getscore(item) {
+        return item.score > 0 ? item.score : "未评分"
+      },
+      pingfen(item,index){
+        console.log(item)
+        this.actid=item._id
+        this.cs[index].act=
+        item.act=true
+
+        // : "5dddd015397ac00603fb2a41"
+      },
+      goplay(item)
+      {
+        console.log(item)
+        if(item.showed==0){
+          //goto
+        }
+
+        //{{item.showed==true?"已表演":(item.showing==true)?"正在表演":"未表演"}}</div>
+      },
+      play(){
+
+      },
+      getpinfen_by_pw() {
+        //item
+        // if(item.avatar){
+        //   return `${this.$imgServer}${item.avatar}`
+        // }
+        // else{
+        //   return ''
+        // }
+
+      },
+      bottomliclick(index) {
+        this.showid = index
+      },
+      showThePage() {
+        // if(showid==0){
+
+        // }
+      },
+      get_dati_score(item) {
+        let fenshu = this.ditifen.filter(ditione => {
+          return ditione.cansaiId == item._id
+        })
+        if (fenshu.length > 0) {
+          return fenshu[0].fenshu
+        } else {
+          return 0
+        }
+      },
+      getMemberData() {
+        this.$axios.get("/noauth/pingfen/all").then(res => {
+          console.log(res.data.data);
+          let data = res.data.data;
+          if (res.status == 200 && res.data.status == 1) {
+            this.cs = data.cs;
+            this.pw = data.pw.filter(pwone => {
+              return pwone.pwtype == "评委" && pwone.username != "0"
+            })
+            this.jb = data.pw.filter(pwone => {
+              return pwone.pwtype == "嘉宾"
+            })
+            this.adminid = data.pw.filter(pwone => {
+              return pwone.pwtype == "评委" && pwone.username == "0"
+            })[0]._id
+            this.ditifen = data.record.filter(recordne => {
+              return recordne.pingweiId == this.adminid
+            })
+            this.flowid = data.flow[0].cansaiId
+            this.markObejct = this.cs.filter(pwone => {
+              return pwone._id == this.flowid
+            })[0]
+            this.pinfen_cansaiId = data.record.filter(recordne => {
+              return recordne.cansaiId == this.flowid
+            })
+            this.pinfen_cansaiId.forEach((ii) => {
+              this.pw.forEach((i, id) => {
+                if (ii.pingweiId == i._id) {
+                  this.pw[id].score = ii.fenshu
+                }
+              })
+            })
+          } else {
+            this.$message.error("保存出现问题，请重试");
+          }
+        });
+      },
+      sendData() {
+        // this.$socket.emit("pingfen", { fenshu: 5 });
+      },
+
+      startAstop(){
+        this.intervalId=null;
+        if(this.intervalId >0){
+
+        }
+        else{ 
+          this.intervalId= window.setInterval(()=>{
+          
+        }, 1000);
+        }
+        
+      },
+      timeleft(){
+        
+
+      },
+      interval(){
+        this.intervalId=null;
+        this.intervalId= window.setInterval(()=>{
+          
+        }, 1000);
+
+      },
     }
-  }
-};
+  };
 </script>
 <style src="./css/pfresult.css">
 </style>

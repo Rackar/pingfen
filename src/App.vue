@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <el-col
+    <!-- <el-col
       :xs="{ span: 24, offset: 0 }"
       :sm="{ span: 18, offset: 3 }"
       :md="{ span: 12, offset: 6 }"
@@ -16,8 +16,9 @@
         <router-link to="/dafen">评委打分页</router-link>&nbsp;|
         <router-link to="/login">评委登录页</router-link>&nbsp;|
         <span class="linkspan" @click="logout">评委注销</span>
-        <router-view />
-      </div>
+        
+      </div> -->
+      <router-view />
     
   </div>
 </template>
