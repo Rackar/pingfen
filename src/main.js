@@ -10,7 +10,7 @@ import axios from "axios";
 import VueSocketIO from "vue-socket.io";
 
 // let mainUrl =process.env.NODE_ENV === "production"? "https://talatan.com:3007/": "http://localhost:3006/";
-let mainUrl ="https://talatan.com:3007/";
+let mainUrl = "https://talatan.com:3007/";
 axios.defaults.baseURL = mainUrl;
 Vue.prototype.$imgServer = mainUrl;
 // var token = window.localStorage.getItem("token");
