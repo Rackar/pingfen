@@ -31,7 +31,7 @@ const routes = [
     name: "socket",
 
     component: () =>
-      import(/* webpackChunkName: "socket" */ "../views/socket.vue")
+      import("../views/socket.vue")
   },
   {
     path: "/result",
