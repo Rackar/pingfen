@@ -167,7 +167,12 @@
     -ms-flex-align: center;
     align-items: center;
   }
-
+  .mark .mark-title .left-title.warn{
+    color: red;
+  }
+  .mark .mark-title .left-title.twarn{
+    color: yellow;
+  }
   .mark .mark-title .left-title,
   .mark .mark-title .pr {
     -webkit-box-align: center;

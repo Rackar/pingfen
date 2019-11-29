@@ -82,11 +82,11 @@
                         </div>
                       </div>
                       <div>
-                         <div class="right" style="float: left;" @click="goplay(item)">
+                      <!-- <div class="right" style="float: left;" @click="goplay(item)">
                         <div class="marks-container">
                           <div class="type">{{item.showed==2?"已表演":(item.showed==1)?"正在表演":"未表演"}}</div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="right" style="    float: right;">
                         <div class="marks-container">
                           <div class="score-mark">{{item.score==-1?"...":item.score}}</div>
@@ -205,7 +205,7 @@
               <div class="pr"></div>
             </div>
             <div class="mark-title" style="margin-top: 5%;font-size: 30px;">
-              <div class="left-title" style="margin: 0 auto;">时间剩余：{{timeleft()}}</div>
+              <div :class="['left-title',maxtime<=30?'warn':(maxtime<=60?'twarn':'')]" style="margin: 0 auto;">时间剩余：{{msgtimer}}</div> 
               <div class="pr"></div>
             </div>
             
@@ -352,6 +352,8 @@ import { setTimeout } from 'timers';
 
         showQT:false,
         actid:'',
+        maxtime :0,
+        msgtimer:'',
 
 
       };
@@ -428,6 +430,10 @@ import { setTimeout } from 'timers';
         console.log(item)
         if(item.showed==0){
           //goto
+          this.showid = 4
+        }
+        else{
+          this.showid = 4
         }
 
         //{{item.showed==true?"已表演":(item.showing==true)?"正在表演":"未表演"}}</div>
@@ -501,34 +507,40 @@ import { setTimeout } from 'timers';
         });
       },
       sendData() {
-        // this.$socket.emit("pingfen", { fenshu: 5 });
+        //this.$socket.emit("pingfen", { fenshu: 5 });
       },
 
       startAstop(){
-        this.intervalId=null;
-        if(this.intervalId >0){
-          console.log('object');
-        }
-        else{ 
-          this.intervalId= window.setInterval(()=>{
-          
-        }, 1000);
-        }
-        
+        this.showid = 4
+        this.timeleft();
       },
       timeleft(){
-        
-
+        if(this.timer==null){
+          this.maxtime=10 * 60;
+          this.msgtimer ="10:00";
+          this.timer = setInterval(this.CountDown, 1000);  
+        }
+        else{ 
+          clearInterval(this.timer);
+          this.timer=null
+        }
       },
-      interval(){
-        this.intervalId=null;
-        this.intervalId= window.setInterval(()=>{
-          
-        }, 1000);
-
+      PrefixZero(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+      },
+      CountDown() {
+        if (this.maxtime >= 0) {
+          let minutes = Math.floor(this.maxtime / 60);
+          let seconds = Math.floor(this.maxtime % 60);
+          this.msgtimer =  this.PrefixZero(minutes,2) + ":" + this.PrefixZero(seconds,2)+ "";
+          --this.maxtime;
+        } else{
+          clearInterval(this.timer);
+          this.timer=null
+        }
       },
     }
-  };
+  }
 </script>
 <style src="./css/pfresult.css">
 </style>

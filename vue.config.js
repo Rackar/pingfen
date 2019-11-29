@@ -29,6 +29,7 @@ module.exports = {
   // }
   configureWebpack: config => {
     config.devtool = "source-map";
+   
     if (isProduction) {
       config.plugins.push(
         new CompressionWebpackPlugin({
@@ -41,6 +42,7 @@ module.exports = {
     }
   },
   chainWebpack: config => {
+    config.plugins.delete('fork-ts-checker') // 禁用fork-ts-checker
     // config.module
     //   .rule("eslint")
     //   .use("eslint-loader")
