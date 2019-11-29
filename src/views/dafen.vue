@@ -17,27 +17,17 @@
     <div class="tail">
       <el-button @click="logout" type="">退出登录</el-button>
     </div>
-    <el-dialog
-      title="打分"
-      :visible.sync="dialogVisible"
-      width="100%"
-      :before-close="handleClose"
-    >
+    <el-dialog title="打分" :visible.sync="dialogVisible" width="100%" :before-close="handleClose">
       <div>
         <h1>
           <!-- 当前环节{{ huanjie }}， -->
           为参赛者
-          <span style="color:red;">{{ cansai }} </span> 打分
+          <span style="color:red;">{{ cansai }}</span>
+          打分
         </h1>
         <div>分数下限：0 ，分数上限：100</div>
 
-        <el-input-number
-          v-model="dafen.fenshu"
-          @change="handleChange"
-          :min="0"
-          :max="100"
-          label="描述文字"
-        ></el-input-number>
+        <el-input-number v-model="dafen.fenshu" @change="handleChange" :min="0" :max="100" label="描述文字"></el-input-number>
         <!-- <button @click="sumitScore">提交分数</button> -->
       </div>
       <span slot="footer" class="dialog-footer">
