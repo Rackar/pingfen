@@ -1,12 +1,3 @@
-#pfresult {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  overflow: hidden;
-  position: relative;
-}
-
 #pfresult,
 body,
 html {
@@ -15,6 +6,12 @@ html {
 }
 
 #pfresult {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  position: relative;
   font-family: Microsoft Yahei, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -78,7 +75,7 @@ html {
 [class*=" wm-"],
 [class^="wm-"] {
   font-family: wm-icon !important;
-  speak: none;
+  /* speak: none; */
   font-style: normal;
   font-weight: 400;
   font-variant: normal;
@@ -492,10 +489,10 @@ mark .mark-title .pr {
 div.el-scrollbar__wrap {
   overflow-y: hidden;
 }
-.s_bottom_link ul li a.s_b_icon.test {
-  /* background: url("../images/fullscreen.png") no-repeat 50%; */
-  /* background-size: 120%; */
-}
+/* .s_bottom_link ul li a.s_b_icon.test {
+  background: url("../images/fullscreen.png") no-repeat 50%;
+  background-size: 120%;
+} */
 .s_bottom_link ul li a.s_b_icon.setting {
   background: url("../images/setting.png") no-repeat 50%;
   background-size: 120%;
