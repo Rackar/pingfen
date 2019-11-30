@@ -359,8 +359,8 @@
     },
     data() {
       return {
-        title: "2019年第一次啊党委比赛ADAS",
-        zhuban: "内蒙古自治区测绘地理信息局",
+        title: "",
+        zhuban: "",
         msg: {},
         huanjie: {
           name: "",
@@ -616,6 +616,11 @@
           // console.log(res.data.data);
           let data = res.data.data;
           if (res.status == 200 && res.data.status == 1) {
+            if(data.bisai.length > 0){
+              let bisA=data.bisai[0]
+              this.title=bisA.title
+              this.zhuban=bisA.zhuban
+            }
             let cs = data.cs;
             let pw = data.pw.filter(pwone => {
               return pwone.pwtype == "评委" && pwone.username != "0";
