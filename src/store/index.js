@@ -1,8 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
 Vue.use(Vuex);
-
 export default new Vuex.Store({
   state: {
     token: "",
@@ -40,7 +38,6 @@ export default new Vuex.Store({
         return result;
       }
     },
-
     logout_delToken(state) {
       state.token = "";
       window.localStorage.removeItem("token");

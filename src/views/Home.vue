@@ -40,6 +40,8 @@
               <img style="height:80px;width:80px;" :src="$imgServer + scope.row.avatar" alt />
             </template>
           </el-table-column>
+          <el-table-column prop="username" label="登录名"></el-table-column>
+          <el-table-column prop="password" label="登录密码"></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="deleteRes(scope.row, 'pw')">删除</el-button>
@@ -204,6 +206,7 @@ export default {
         }
       );
     },
+    
 
     getTableData() {
       //axios
