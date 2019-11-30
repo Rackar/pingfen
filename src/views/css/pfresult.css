@@ -528,6 +528,7 @@ div.el-scrollbar__wrap {
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  cursor: pointer;
 }
 .icon_tihuan_bg:hover {
   background-color: #00a1f6;

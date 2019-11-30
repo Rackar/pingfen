@@ -3,6 +3,20 @@
     <el-col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 3 }" :md="{ span: 12, offset: 6 }">
       <Nav></Nav>
       <div class="card">
+        <h3>设置比赛信息</h3>
+        <el-form ref="formBisai" :rules="rulesBisai" :inline="true" :model="formBisai" class="demo-form-inline">
+          <el-form-item label="比赛名称" prop="title">
+            <el-input v-model="formBisai.title" placeholder="比赛名称"></el-input>
+          </el-form-item>
+          <el-form-item label="主办单位" prop="zhuban">
+            <el-input v-model="formBisai.zhuban" placeholder="主办单位"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="changeBisai">确定</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="card">
         <h3>新增评委</h3>
         <el-upload class="avatar-uploader" :action="uploadActionUrl" :show-file-list="false" :on-success="handleUploadSuccess" :before-upload="beforeUploadUpload" :on-remove="handleRemove">
           <div slot="tip" class="el-upload__tip">点击上传评委头像</div>
@@ -123,6 +137,10 @@ export default {
         username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
         password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       },
+      rulesBisai: {
+        title: [{ required: true, message: "请输入比赛名称", trigger: "blur" }],
+        zhuban: [{ required: true, message: "请输入主办方名称", trigger: "blur" }]
+      },
       rulesCs: {
         name: [{ required: true, message: "请输入队伍名", trigger: "blur" }]
       },
@@ -137,6 +155,7 @@ export default {
       imageUrl: "",
       imageUrl2: "",
       tableData: [],
+      formBisai: { title: "", zhuban: "" },
       formPingwei: {
         name: "",
         username: "",
@@ -206,8 +225,27 @@ export default {
         }
       );
     },
-    
+    changeBisai() {
+      this.$refs["formBisai"].validate(valid => {
+        if (valid) {
+          let obj = {
+            title: this.formBisai.title,
+            zhuban: this.formBisai.zhuban
+          };
+          // console.log(obj);
+          this.$axios.post("/noauth/pingfen/changebisai", obj).then(res => {
+            console.log(res.data.data);
+            if (res.status == 200 && res.data.status == 1) {
+              // this.$router.push("/list");
 
+              this.$message.success("保存成功");
+            } else {
+              this.$message.error("保存出现问题，请重试");
+            }
+          });
+        }
+      });
+    },
     getTableData() {
       //axios
       this.$axios.get("/noauth/pingfen/all").then(res => {
@@ -218,6 +256,10 @@ export default {
           this.table.cansai = data.cs;
           this.table.pingwei = data.pw;
           this.table.huanjie = data.hj;
+          if (data.bisai.length) {
+            this.formBisai.title = data.bisai[0].title;
+            this.formBisai.zhuban = data.bisai[0].zhuban;
+          }
           // this.table.cansai.push(obj);
         } else {
           this.$message.error("保存出现问题，请重试");
