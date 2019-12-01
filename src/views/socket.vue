@@ -513,6 +513,7 @@
           } else {
             records = this.markObejct.record_jb
           }
+          if(!records){records=[]}
           true2 = records.some((res, index) => {
             if (res.pingweiId == value.pingweiId) {
               findi = index;
