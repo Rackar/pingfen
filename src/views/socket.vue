@@ -615,6 +615,7 @@
           // console.log(res.data.data);
           let data = res.data.data;
           if (res.status == 200 && res.data.status == 1) {
+            this.member=data;
             if(data.bisai.length > 0){
               let bisA=data.bisai[0]
               this.title=bisA.title
