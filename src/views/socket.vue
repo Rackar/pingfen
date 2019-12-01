@@ -552,8 +552,9 @@
           return 0
         }
       },
+      //硬复制一份去除循环更新渲染bug
       gethasPingd_avg(item) {
-        let scores = item.record.sort(function (a, b) {
+        let scores = item.record.slice().sort(function (a, b) {
           return a.fenshu - b.fenshu;
         });
         if (scores.length > 3) {
