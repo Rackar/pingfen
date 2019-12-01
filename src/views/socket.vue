@@ -289,7 +289,7 @@
             <span class="li_span">答题结果</span>
           </li>
           <li class="li-home" @click="bottomliclick(2)">
-            <i class="el-icon-s-claim  icon_tihuan_bg"></i>
+            <i class="el-icon-s-platform  icon_tihuan_bg"></i>
             <span class="li_span">现场比赛</span>
           </li>
           <li class="li-home" @click="bottomliclick(5)">
@@ -435,7 +435,6 @@
           } else if (el.webkitRequestFullscreen) {
             el.webkitRequestFullscreen();
           } else if (el.msRequestFullscreen) {
-
             el.msRequestFullscreen();
           }
           this.isFullscreen = true;
@@ -447,14 +446,12 @@
           } else if (el.webkitCancelFullScreen) {
             el.webkitCancelFullScreen();
           } else if (el.msCancelFullScreen) {
-
             el.msCancelFullScreen();
+          }else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
           }
           this.isFullscreen = false;
         }
-
-
-        document.webkitCancelFullScreen();
       },
       setting() {
         window.open("https://talatan.com/pingfen/#/control");
