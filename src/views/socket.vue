@@ -88,7 +88,7 @@
                           <div class="description">{{ item.description }}</div>
                         </div>
                       </div>
-                      <div class="right" style="float: right;">
+                      <div class="right" style="float: right;" @click="pingfenshow(item, index)">
                         <div class="marks-container">
                           <div class="score-mark">{{ gethasPingd_avg(item) }}</div>
                           <div class="type">{{item.avgrecord >0?"均分":"待评分"}}</div>
@@ -600,16 +600,9 @@
         this.markObejctindex = index;
         this.markObejct = item
         this.actid = item._id;
-        // this.cs.filter((pwone,i) => {
-        //   if(pwone._id == this.actid){
-        //     this.markObejctindex=i;
-        //     this.markObejct = pwone
-        //     return true
-        //   }
-        //   else{
-        //     return false
-        //   }
-        // });
+        // this.showid = 3
+      },
+      pingfenshow(item, index) {
         this.showid = 3
       },
       bottomliclick(index) {
