@@ -2,6 +2,24 @@
   <div class="home" v-loading="loading">
     <el-col :xs="{ span: 24, offset: 0 }" :sm="{ span: 18, offset: 3 }" :md="{ span: 12, offset: 6 }">
       <Nav></Nav>
+      <!-- <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+        <el-menu-item index="1">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="2">
+          <i class="el-icon-menu"></i>
+          <span slot="title">导航二</span>
+        </el-menu-item>
+        <el-menu-item index="3" disabled>
+          <i class="el-icon-document"></i>
+          <span slot="title">导航三</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+      </el-menu> -->
       <div class="card">
         <h3>设置比赛信息</h3>
         <el-form ref="formBisai" :rules="rulesBisai" :inline="true" :model="formBisai" class="demo-form-inline">

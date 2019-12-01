@@ -224,7 +224,7 @@
                 <button type="button" :class="['btn', activeindex==2?'active':'']" @click="buttonfensu(2)">现场成绩</button></div>
             </div>
             <div  class="result-winner single">
-              <div :class="['result-item', `rank${index+1}`]" style="order: 1; opacity: 1;" v-for="(item,index) in showresults" :key="index" v-show="(index+1)<=3">
+              <div :class="['result-item', `rank${index+1==1?2:(index+1==2?1:index+1)}`]" style="order: 1; opacity: 1;" v-for="(item,index) in showresults" :key="index" v-show="(index+1)<=3">
                 <div class="left">
                   <div class="index">{{ index+1 }}</div>
                   <div class="avatar">
@@ -474,9 +474,14 @@
              this.cs[index].total=this.cs[index].avgrecord-0
           }
         }
-        this.showresults=JSON.parse(JSON.stringify(this.cs)).sort(function (a, b) {
+        let showresults=JSON.parse(JSON.stringify(this.cs)).sort(function (a, b) {
           return b.total - a.total;
         });
+        //第一名和第二名换位置
+        let sencond=showresults[1]
+        showresults.splice(1,1)
+        showresults.unshift(sencond)
+        this.showresults=showresults;
       },
       showqt() {
         this.showQT = !this.showQT;
@@ -609,6 +614,9 @@
       },
       bottomliclick(index) {
         this.showid = index;
+        if(index==5){
+          this.buttonfensu(this.activeindex)
+        }
       },
       getMemberData() {
         this.$axios.get("/noauth/pingfen/all").then(res => {
