@@ -2,7 +2,7 @@
   <div id="pfresult">
     <div class="bg">
       <div></div>
-      <img src="https://res.wmnetwork.cc/res/screen/img/logo_top.png" alt="微媒网络" class="wm-logo" v-show="false" />
+      <!-- <img src="https://res.wmnetwork.cc/res/screen/img/logo_top.png" alt="微媒网络" class="wm-logo" v-show="false" /> -->
     </div>
     <div class="mark">
       <div class="mark">
@@ -140,15 +140,14 @@
                     </div>
                   </div>
                   <div class="type-link">
-                    <!---->
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="bottom">
-            <!---->
-            <!---->
+
             <div style="position: relative;">
               <div class="left" tabindex="3" style="overflow: hidden; outline: none;">
                 <div class="jury-list"
