@@ -56,7 +56,9 @@
           <el-form-item label="密码" prop="password">
             <el-input v-model="formPingwei.password" placeholder="密码"></el-input>
           </el-form-item>
-
+          <el-form-item label="单位" prop="description">
+            <el-input v-model="formPingwei.description" placeholder="评委单位"></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="addPingwei">新增</el-button>
           </el-form-item>
@@ -66,6 +68,7 @@
           <el-table-column type="index" label="序号"></el-table-column>
 
           <el-table-column prop="name" label="姓名"></el-table-column>
+          <el-table-column prop="description" label="单位"></el-table-column>
           <el-table-column prop="pwtype" label="类型"></el-table-column>
           <el-table-column label="头像">
             <template slot-scope="scope">
@@ -175,6 +178,7 @@ export default {
       tableData: [],
       formBisai: { title: "", zhuban: "" },
       formPingwei: {
+        description:"",
         name: "",
         username: "",
         password: "",
@@ -292,7 +296,8 @@ export default {
             username: this.formPingwei.username,
             password: this.formPingwei.password,
             avatar: this.formPingwei.avatar,
-            pwtype: this.formPingwei.pwtype
+            pwtype: this.formPingwei.pwtype,
+            description:this.formPingwei.description
           };
 
           this.$axios.post("/noauth/pingfen/addpingwei", obj).then(
