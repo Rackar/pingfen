@@ -33,10 +33,36 @@ const routes = [
     component: () => import("../views/socket.vue")
   },
   {
-    path: "/socket",
-    name: "socket",
+    path: "/rebuild",
+    name: "rebuild",
 
-    component: () => import("../views/socket.vue")
+    component: () => import("../views/rebuild/index"),
+    children: [
+      {
+        // 当 /user/:id/profile 匹配成功，
+        // UserProfile 会被渲染在 User 的 <router-view> 中
+        path: 'main',
+        component: () => import("../views/rebuild/main")
+      },
+      {
+        // 当 /user/:id/posts 匹配成功
+        // UserPosts 会被渲染在 User 的 <router-view> 中
+        path: 'resultDati',
+        component: () => import("../views/rebuild/resultDati")
+      },
+      {
+        // 当 /user/:id/posts 匹配成功
+        // UserPosts 会被渲染在 User 的 <router-view> 中
+        path: 'resultHuanjie',
+        component: () => import("../views/rebuild/resultHuanjie")
+      },
+      {
+        // 当 /user/:id/posts 匹配成功
+        // UserPosts 会被渲染在 User 的 <router-view> 中
+        path: 'resultPaiming',
+        component: () => import("../views/rebuild/resultPaiming")
+      }
+    ]
   },
   {
     path: "/result",

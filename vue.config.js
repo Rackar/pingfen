@@ -4,7 +4,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
-
+  // publicPath: "/vue/",
   productionSourceMap: false, //去除build版本的map
   devServer: {
     // publicPath: "/", // 和 publicPath 保持一致,
@@ -29,7 +29,7 @@ module.exports = {
   // }
   configureWebpack: config => {
     config.devtool = "source-map";
-   
+
     if (isProduction) {
       config.plugins.push(
         new CompressionWebpackPlugin({
@@ -42,7 +42,7 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.plugins.delete('fork-ts-checker') // 禁用fork-ts-checker
+    config.plugins.delete("fork-ts-checker"); // 禁用fork-ts-checker
     // config.module
     //   .rule("eslint")
     //   .use("eslint-loader")

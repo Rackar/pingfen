@@ -1,0 +1,1033 @@
+#pfresult,
+body,
+html 
+  width 100%
+  height 100%
+  overflow-x hidden
+  overflow-y hidden
+#pfresult 
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+  overflow hidden
+  position relative
+  font-family Microsoft Yahei, Avenir, Helvetica, Arial, sans-serif
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  color #666
+  .bg 
+    position fixed
+    top 0px
+    left 0px
+    right 0px
+    bottom 0px
+    background-repeat no-repeat
+    background-size 100% 100%
+    width 100%
+    z-index -2
+    background-image url("./images/bg.jpg")
+  .wm-logo 
+    width 150px
+    height auto
+    position fixed
+    right 50px
+    bottom 50px
+  & > .mark 
+    color #fff
+    position fixed
+    width 100%
+    height 100%
+    padding-top 20px
+    -webkit-box-sizing border-box
+    box-sizing border-box
+    overflow hidden
+    .mark-container 
+      width 1920px
+      margin 0 auto
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-orient vertical
+      -webkit-box-direction normal
+      -ms-flex-direction column
+      flex-direction column
+      -webkit-box-align center
+      -ms-flex-align center
+      align-items center
+      position fixed
+      top 50%
+      left 50%
+      -webkit-transform translate(-50%, -50%)
+      transform translate(-50%, -50%)
+      .mark-list 
+        padding 20px
+        margin-top 10px
+        background rgba(0, 0, 0, 0.3)
+        height 580px
+        width 1600px
+        -webkit-box-sizing border-box
+        box-sizing border-box
+        overflow hidden
+        &.one 
+          height 700px
+        .mark-list-box 
+          padding-bottom 50px
+        .mark-item-container 
+          width 30%
+          height 180px
+          display inline-block
+          padding 0 20px
+          -webkit-box-sizing border-box
+          box-sizing border-box
+          margin-left 30px
+          margin-top 30px
+          &.one 
+            width 78%
+            margin-top 50px
+            &.act 
+              border 2px solid whitesmoke
+          &:nth-child(-n 
+            & + 2) 
+              margin-top 0
+          &:nth-child(odd) 
+            margin-left 30px
+      .opt 
+        margin-top 10px
+        width 1600px
+        height 100px
+        background rgba(0, 0, 0, 0.2)
+        position relative
+        font-size 20px
+        & > div 
+          position absolute
+          top 50%
+          left 50%
+          -webkit-transform translate(-50%, -50%)
+          transform translate(-50%, -50%)
+        input[type="checkbox"] 
+          width 25px
+          height 25px
+          vertical-align middle
+          font-size 20px
+          margin-right 5px
+          margin-top -8px
+        label 
+          cursor pointer
+          font-size 28px
+          margin-right 22px
+        .result 
+          img 
+            vertical-align bottom
+    .mark-title 
+      width 1600px
+      margin-bottom 18px
+    .result-container 
+      width 1600px
+      height 1080px
+      margin 0 auto
+      position fixed
+      top 50%
+      left 50%
+      -webkit-transform translate(-50%,-50%)
+      transform translate(-50%,-50%)
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-orient vertical
+      -webkit-box-direction normal
+      -ms-flex-direction column
+      flex-direction column
+      -webkit-box-align center
+      -ms-flex-align center
+      align-items center
+      .gray-container 
+        background rgba(0,0,0,.3)
+        width 100%
+        padding-bottom 20px
+        border-radius 6px
+      .toggleBtn 
+        width 100%
+        margin-bottom 20px
+        background hsla(0,0%,100%,.1)
+        font-size 30px
+        height 66px
+        white-space nowrap
+        position relative
+        overflow hidden
+        .btns 
+          float left
+          margin 0 80px
+          position relative
+          white-space nowrap
+        .btn 
+          height 66px
+          border none
+          outline none
+          cursor pointer
+          padding 10px 30px
+          color #fff
+          background transparent
+          font-size 30px
+          &.active 
+            background rgba(0,0,0,.3)
+            color #5994ff
+      .result-winner 
+        display -webkit-box
+        display -ms-flexbox
+        display flex
+        width 100%
+        height 270px
+        -ms-flex-pack distribute
+        justify-content space-around
+        margin-bottom 20px
+        -webkit-box-align end
+        -ms-flex-align end
+        align-items flex-end
+      .result-list 
+        padding 20px 65px
+        height 420px
+        -webkit-box-sizing border-box
+        box-sizing border-box
+        overflow-y auto
+        #result_list_content 
+          -webkit-transition all .3s
+          transition all .3s
+          -webkit-transform translateZ(0)
+          transform translateZ(0)
+        .mark-item-container 
+          width 700px
+          height 80px
+          display inline-block
+          -webkit-box-sizing border-box
+          box-sizing border-box
+          margin-top 15px
+          overflow hidden
+          &:nth-child(-n 
+            & + 2) 
+              margin-top 0
+              margin-top 0
+          &:nth-child(odd) 
+            margin-right 40px
+  #markScreen 
+    overflow-y auto
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-track 
+  border-radius 999px
+  border 2px solid transparent
+  border-radius 999px
+  border 2px solid transparent
+::-webkit-scrollbar-track 
+  -webkit-box-shadow 1px 1px 10px rgba(0, 0, 0, 0.7) inset
+  box-shadow inset 1px 1px 10px rgba(0, 0, 0, 0.7)
+::-webkit-scrollbar-thumb 
+  min-height 20px
+  background-clip content-box
+  -webkit-box-shadow 0 0 0 10px rgba(0, 0, 0, 0.7) inset
+  box-shadow inset 0 0 0 10px rgba(0, 0, 0, 0.7)
+::-webkit-scrollbar-corner 
+  background transparent
+::-webkit-scrollbar 
+  width 14px
+  height 14px
+[class*=" wm-"],
+[class^="wm-"] 
+  font-family wm-icon !important
+  /* speak: none; */
+  font-style normal
+  font-weight 400
+  font-variant normal
+  text-transform none
+  line-height 1
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+img 
+  border none
+.mark 
+  .mark-title 
+    width 100%
+    height 120px
+    line-height 100px
+    padding 0 2%
+    -webkit-box-sizing border-box
+    box-sizing border-box
+    border-radius 6px
+    color #fff
+    background rgba(0, 0, 0, 0.3)
+    display -webkit-box
+    display -ms-flexbox
+    display flex
+    -webkit-box-pack justify
+    -ms-flex-pack justify
+    justify-content space-between
+    font-size 50px
+    .left-title 
+      width 60%
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      display block
+      white-space nowrap
+      overflow hidden
+      text-overflow ellipsis
+      line-height 120px
+    .pr 
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-pack center
+      -ms-flex-pack center
+      justify-content center
+  .jury-remark-container 
+    display -webkit-box
+    display -ms-flexbox
+    display flex
+    margin-bottom 20px
+    & > .left-left 
+      overflow unset !important
+      width 60px
+      height 60px
+      margin-right 0.3rem
+      position relative
+      border-radius 50%
+      .jury-remark-avatar 
+        -webkit-transform translateX(-30px)
+        transform translateX(-30px)
+        border-radius 50%
+        position absolute
+        width 60px
+        height 60px
+        left 0
+        top 0
+    .right-right 
+      width 90%
+      background none
+      padding 0
+      .top 
+        -webkit-box-pack justify
+        -ms-flex-pack justify
+        justify-content space-between
+        margin-bottom 7px
+        .name-container 
+          .jury 
+            background -webkit-gradient(linear, left top, right top, from(#d59842), to(#fff584))
+            background linear-gradient(90deg, #d59842, #fff584)
+            width 60px
+            height 30px
+            border-radius 6px
+            text-align center
+            line-height 30px
+            margin-right 6px
+            color #202020
+          .name 
+            color #adadad
+            font-size 28px
+            width 145px
+            white-space nowrap
+            overflow hidden
+            text-overflow ellipsis
+        .mark 
+          background rgba(33, 132, 255, 0.4)
+          color #fff
+          border-radius 6px
+          font-size 26px
+          border 1px solid #2184ff
+          padding 6px 5px
+          white-space nowrap
+mark .mark-title .left-title,
+.mark .mark-title .pr 
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+.mark .mark-title .left-title,
+.mark .mark-title .pr 
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+mark 
+  .mark-title 
+    .pr 
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-pack center
+      -ms-flex-pack center
+      justify-content center
+.mark-container 
+  &.dt 
+    .mark-item-container 
+      &.one 
+        zoom 70%
+.list-item 
+  -webkit-box-pack justify
+  -ms-flex-pack justify
+  justify-content space-between
+  width 100%
+  /* background: rgba(0, 0, 0, .6); */
+  padding 10px
+  -webkit-box-sizing border-box
+  box-sizing border-box
+  border-radius 6px
+  overflow hidden
+  cursor pointer
+  .left 
+    .avatar 
+      border-radius 50%
+      width 140px
+      height 140px
+      border 3px solid #ff0
+      margin 20px
+    .title 
+      /* max-width: 290px; */
+      font-size 34px
+      color #fff
+      white-space nowrap
+      overflow hidden
+    .description 
+      display block
+      color #8b8b8b
+      font-size 28px
+      width 290px
+      overflow hidden
+      text-overflow ellipsis
+      display -webkit-box
+      -webkit-line-clamp 2
+      -webkit-box-orient vertical
+  .right 
+    color #fff
+    display -webkit-box
+    display -ms-flexbox
+    display flex
+    -webkit-box-pack center
+    -ms-flex-pack center
+    justify-content center
+    -webkit-box-align center
+    -ms-flex-align center
+    align-items center
+    border 1px solid #fff
+    border-radius 6px
+    text-align center
+    background hsla(0, 0%, 100%, 0.3)
+    margin 5px
+    min-width 128px
+    height 128px
+    -webkit-box-sizing border-box
+    box-sizing border-box
+    font-size 30px
+    .score-mark 
+      font-size 50px
+      font-weight 700
+      padding 5px 10px
+.list-item .left,
+.list-item 
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+#pfresult > .mark .mark-container .opt .result:active,
+#pfresult > .mark .mark-container .opt .result:hover,
+#pfresult > .mark .mark-container .opt .result:link,
+#pfresult > .mark .mark-container .opt .result:visited 
+  color #fff
+.s_bottom 
+  width 100%
+  height 12px
+  position fixed
+  left 0
+  bottom -66px
+  text-align center
+  z-index 100
+  height 86px
+  padding-top 15px
+  .s_bottom_box 
+    -webkit-box-sizing border-box
+    box-sizing border-box
+    padding 0 40px
+    .right 
+      float right
+  &:hover 
+    .s_bottom_link 
+      margin-top -65px
+.s_bottom_link 
+  height 66px
+  display inline-block
+  margin-top 30px
+  -webkit-transition margin-top 0.5s ease
+  transition margin-top 0.5s ease
+  padding 20px 0 5px
+  ul 
+    background rgba(0, 0, 0, 0.7)
+    position relative
+    li 
+      width 48px
+      height 66px
+      margin 0 2px
+      display block
+      float left
+      position relative
+      &.li-home 
+        position relative
+        &:before 
+          content ""
+          border-right 1px dashed hsla(0, 0%, 100%, 0.6)
+          position absolute
+          width 1px
+          height 40px
+          right -4px
+          top 7px
+      a 
+        &.s_b_icon 
+          width 40px
+          height 40px
+          display block
+          border-radius 50%
+          margin 3px 4px 4px
+          background-image url("./images/screen_icon.png")
+          &.home 
+            background url("./images/home.png") no-repeat 50%
+            background-size 75%
+          &.sign_wall 
+            background url("./images/sign_wall.png") no-repeat 50%
+            background-size 100%
+          &.weixin 
+            background url("./images/weixin.png") no-repeat 50%
+            background-size 100%
+          &.mark 
+            background url("./images/mark.png") no-repeat 50%
+            background-size 100%
+          &.fullscreen 
+            background url("./images/fullscreen.png") no-repeat 50%
+            background-size 120%
+          &.recode 
+            background url("./images/qt.png") no-repeat 50%
+            background-size 120%
+          &.setting 
+            background url("./images/setting.png") no-repeat 50%
+            background-size 120%
+        &.menu-name 
+          color #fff
+          width 100%
+          position absolute
+          bottom 7px
+          left 0
+          text-align center
+          display inline-block
+          text-decoration none
+      &:hover 
+        a 
+          &.s_b_icon 
+            background-color #03a2f9
+            background-color #03a2f9
+        span 
+          display inline-block
+      .li_span 
+        position absolute
+        top -35px
+        left 50%
+        width 120px
+        margin-left -60px
+        color #fff
+        background rgba(0, 0, 0, 0.44)
+        padding 5px
+        display none
+        border-radius 4px
+        i 
+          width 0
+          height 0
+          border-left 5px solid transparent
+          border-right 5px solid transparent
+          border-top 5px solid rgba(0, 0, 0, 0.44)
+          position absolute
+          left 50%
+          margin-left -5px
+          bottom -5px
+  .bottom_radius 
+    width 34px
+    height 56px
+    display block
+    background-image url("./images/span.png")
+    background-repeat no-repeat
+    position absolute
+    top 0
+    &.bottom_radius_left 
+      background-position 0 0
+      left -34px
+  &:hover 
+    margin-top -49px
+.s_bottom_link,
+.s_bottom_link ul 
+  width 100%
+  text-align center
+  height 86px
+.clearfix:after,
+.clearfix:before 
+  display table
+  content ""
+div 
+  &.el-scrollbar__wrap 
+    overflow-y hidden
+/* .s_bottom_link ul li a.s_b_icon.test {
+  background: url("./images/fullscreen.png") no-repeat 50%;
+  background-size: 120%;
+} */
+.icon_tihuan_bg 
+  line-height 40px
+  font-size 30px
+  color white
+  margin 2px 0 0 0
+  border-radius 50%
+  width 40px
+  height 40px
+  cursor pointer
+  &:hover 
+    background-color #00a1f6
+/* .s_bottom_link {
+    margin-top: -65px;
+} */
+.keycode_hint 
+  position fixed
+  bottom 100px
+  right 40px
+  display none
+  width 50%
+  max-width 750px
+  z-index 10005
+  cursor pointer
+.markJury 
+  width 1600px
+  background rgba(0, 0, 0, 0.3)
+  position absolute
+  left 50%
+  top 50%
+  -webkit-transform translate(-50%, -50%)
+  transform translate(-50%, -50%)
+  #markJurybg 
+    background-image url(https://img2.wmnetwork.cc/res/screen/img/bg/diqiu/22_big.jpg)
+    position absolute
+    z-index -1
+    top 0px
+    left 0px
+    bottom 0px
+    right 0px
+    filter blur(30px)
+    background-size 100% 100%
+    background-repeat no-repeat
+  .top 
+    margin-bottom 10px
+    .marked 
+      font-size 28px
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-align center
+      -ms-flex-align center
+      align-items center
+      img 
+        width 36px
+        height 34px
+        margin-right 5px
+  .title-logo-container 
+    width 100%
+    height 100%
+    display -webkit-box
+    display -ms-flexbox
+    display flex
+    -webkit-box-align center
+    -ms-flex-align center
+    align-items center
+    img 
+      width 80px
+      height 80px
+      border-radius 50%
+      margin 0 26px
+    .outterbox 
+      width 800px
+      white-space nowrap
+      overflow hidden
+      .inner_box 
+        display inline-block
+  .mark-title 
+    .info 
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-align center
+      -ms-flex-align center
+      align-items center
+      font-size 1rem
+      line-height 2rem
+      .score-container 
+        display -webkit-box
+        display -ms-flexbox
+        display flex
+        -ms-flex-pack distribute
+        justify-content space-around
+        -webkit-box-orient vertical
+        -webkit-box-direction normal
+        -ms-flex-direction column
+        flex-direction column
+        text-align center
+        background hsla(0, 0%, 100%, 0.2)
+        margin 0 0.5rem
+        padding 8px 9px
+        border-radius 6px
+        -webkit-box-sizing border-box
+        box-sizing border-box
+        font-size 26px
+        line-height 33px
+        height 100px
+  & > .bottom 
+    height 760px
+    display -webkit-box
+    display -ms-flexbox
+    display flex
+    -webkit-box-pack justify
+    -ms-flex-pack justify
+    justify-content space-between
+    position relative
+    & > div 
+      & > .left 
+        width 1080px
+        height 680px
+        margin-right 10px
+        background rgba(0, 0, 0, 0.3)
+        border-radius 16px
+        position relative
+        margin-bottom 80px
+        -webkit-box-sizing border-box
+        box-sizing border-box
+        .jury-item-container 
+          display inline-block
+          width 280px
+          margin-top 45px
+          margin-left 66px
+    & > .right 
+      width 500px
+      height 680px
+      padding 1rem 1.5rem
+      background rgba(0, 0, 0, 0.3)
+      -webkit-box-sizing border-box
+      box-sizing border-box
+      overflow hidden
+      border-radius 16px
+      .remark-container 
+        padding-right 0.4rem
+    & > .link 
+      position absolute
+      bottom 10px
+      left 50%
+      -webkit-transform translateX(-50%)
+      transform translateX(-50%)
+      a 
+        color #fff
+.jury-item 
+  width 100%
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+  background rgba(0, 0, 0, 0.3)
+  position relative
+  padding 20px
+  text-align center
+  margin-top 25%
+  -webkit-box-sizing border-box
+  box-sizing border-box
+  .jury-avatar 
+    position relative
+    top -50%
+    width 64%
+    border-radius 50%
+    border 3px solid #fff
+    overflow hidden
+    padding-top 64%
+    -webkit-transform translateY(-75%)
+    transform translateY(-75%)
+    margin 0 auto -48%
+    & > img 
+      position absolute
+      top 0
+      left 0
+      width 100%
+    & > .mark 
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      display -webkit-box
+      display -ms-flexbox
+      display flex
+      -webkit-box-pack center
+      -ms-flex-pack center
+      justify-content center
+      -webkit-box-align center
+      -ms-flex-align center
+      align-items center
+      font-size 34px
+      color #fff
+      background rgba(0, 0, 0, 0.6)
+      &.marked 
+        font-size 64px
+  .jury-name 
+    font-size 42px
+    color #fff
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+  .jury-desc 
+    font-size 26px
+    color #adadad
+    display -webkit-box
+    -webkit-line-clamp 2
+    -webkit-box-orient vertical
+    overflow hidden
+    /* height: 70px; */
+/* .pop-ecode {
+  width: 510px;
+  height: auto!important;
+  background: #fff;
+  z-index: 99;
+  position: fixed;
+  border-radius: 8px;
+  overflow: hidden;
+  display: none;
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  transition: all .5s;
+  -webkit-transition: all .5s;
+  padding: 20px 0!important;
+} */
+.pop-ecode 
+  .ecode-image 
+    width 100%
+    display block
+    background #fff
+    position relative
+    cursor pointer
+    overflow hidden
+    .url_img 
+      width 100%
+      height 100%
+      display block
+  .ecode-bottomtext 
+    width 470px
+    height auto
+    display block
+    margin 0 auto
+    text-align left
+    transition all 0.5s
+    -webkit-transition all 0.5s
+    width 470px
+    height auto
+    display block
+    margin 0 auto
+    text-align left
+    transition all 0.5s
+    -webkit-transition all 0.5s
+    p 
+      font-size 24px
+      line-height 32px
+      padding 3px 0
+      color #333
+    &.t2 
+      color #000
+      font-size 24px
+      text-align center
+      width auto
+      margin 10px auto
+.mark .jury-remark-container .right-right .top,
+.mark .jury-remark-container .right-right .top .name-container 
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+.remark-animation 
+  position fixed
+  top 50%
+  left 50%
+  -webkit-transform translate(-50%, -50%)
+  transform translate(-50%, -50%)
+.right 
+  .el-scrollbar__view 
+    padding 2rem 2.5rem
+.result-item 
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-pack justify
+  -ms-flex-pack justify
+  justify-content space-between
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+  width 100%
+  height 100%
+  background rgba(0,0,0,.6)
+  -webkit-box-sizing border-box
+  box-sizing border-box
+  border-radius 6px
+  overflow hidden
+  cursor pointer
+  padding 0 20px
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-pack justify
+  -ms-flex-pack justify
+  justify-content space-between
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+  width 100%
+  height 100%
+  background rgba(0,0,0,.6)
+  -webkit-box-sizing border-box
+  box-sizing border-box
+  border-radius 6px
+  overflow hidden
+  cursor pointer
+  padding 0 20px
+  .left 
+    width 470px
+    width 470px
+    .index 
+      font-size 50px
+      font-weight 700
+      width 70px
+      text-align right
+      display inline-block
+    .avatar 
+      display inline-block
+      vertical-align top
+      border-radius 50%
+      width 50px
+      height 50px
+      border 3px solid #ff0
+      margin 9px 30px 0 20px
+      overflow hidden
+      -webkit-box-sizing border-box
+      box-sizing border-box
+      img 
+        width 100%
+        height 100%
+    .info 
+      display inline-block
+      max-width 275px
+      vertical-align -7px
+    .name 
+      font-size 34px
+      color #fff
+      white-space nowrap
+      overflow hidden
+      max-width 275px
+  .right 
+    color #fff
+    -webkit-box-pack center
+    -ms-flex-pack center
+    justify-content center
+    text-align center
+    margin 5px
+    width 190px
+    .marks-container 
+      width 173px
+      width 173px
+      .type 
+        font-size 26px
+        white-space nowrap
+        font-size 26px
+        white-space nowrap
+      .score-mark 
+        font-size 40px
+        font-weight 700
+        padding 5px 10px
+        width 100px
+        font-size 40px
+        font-weight 700
+        padding 5px 10px
+        width 100px
+.result-winner .result-item.rank1, .result-winner .result-item.rank2, .result-winner .result-item.rank3 
+  width 500px
+  height 226px
+  background-color transparent
+  background-size 100% 100%
+  background-repeat no-repeat
+  position relative
+  -webkit-box-orient vertical
+  -webkit-box-direction normal
+  -ms-flex-direction column
+  flex-direction column
+  -ms-flex-pack distribute
+  justify-content space-around
+  padding 10px
+.result-winner 
+  .result-item 
+    &.rank1 
+      background-image url("./images/rank1.png")
+      zoom 1.2
+      .name 
+        zoom .77
+    &.rank2 
+      -webkit-box-ordinal-group 2
+      -ms-flex-order 1
+      order 1
+      background-image url("./images/rank2.png")
+    &.rank3 
+      -webkit-box-ordinal-group 4
+      -ms-flex-order 3
+      order 3
+      background-image url("./images/rank3.png")
+.result-winner .result-item.rank1 .left, .result-winner .result-item.rank2 .left, .result-winner .result-item.rank3 .left 
+  margin 6px 0 -47px -56px
+  width 100%
+  text-align center
+.result-winner .result-item.rank1 .left .index, .result-winner .result-item.rank2 .left .index, .result-winner .result-item.rank3 .left .index 
+  display none
+.result-winner .result-item.rank1 .left .avatar, .result-winner .result-item.rank2 .left .avatar, .result-winner .result-item.rank3 .left .avatar 
+  width 70px
+  height 70px
+  vertical-align top
+  margin 0 10px
+  -webkit-box-sizing border-box
+  box-sizing border-box
+.result-winner .result-item.rank1 .left .avatar img, .result-winner .result-item.rank2 .left .avatar img, .result-winner .result-item.rank3 .left .avatar img 
+  width 100%
+  height 100%
+.result-winner .result-item.rank1 .left .info, .result-winner .result-item.rank2 .left .info, .result-winner .result-item.rank3 .left .info 
+  max-width 275px
+  margin-top 10px
+.result-winner .result-item.rank1 .left .name, .result-winner .result-item.rank2 .left .name, .result-winner .result-item.rank3 .left .name 
+  font-size 33px
+  max-width 265px
+  text-align left
+  margin-top 15px
+.result-item .right, .result-item .right .marks-container 
+  display -webkit-box
+  display -ms-flexbox
+  display flex
+  -webkit-box-align center
+  -ms-flex-align center
+  align-items center
+.result-winner .result-item.rank1 .right, .result-winner .result-item.rank2 .right, .result-winner .result-item.rank3 .right 
+  width 350px
+  height 60px
+  border-radius 6px
+  padding 16px 10px
+  -webkit-box-sizing border-box
+  box-sizing border-box
+  font-size 26px
+  margin-bottom 15px
+.result-winner .result-item.rank1 .right .score-mark, .result-winner .result-item.rank2 .right .score-mark, .result-winner .result-item.rank3 .right .score-mark 
+  font-size 50px
